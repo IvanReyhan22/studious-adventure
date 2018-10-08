@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".resultlayout">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:cardBackgroundColor="#f8ce46">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/xico" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="VOCABULARY"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textAlignment="center"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/dot3" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="#f8ce46">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    app:cardBackgroundColor="#e9b62b"
+                    card_view:cardCornerRadius="30dp">
+
+                    <HorizontalScrollView
+                        android:layout_width="240dp"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/star1"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/bluestar"/>
+
+                            <ImageView
+                                android:id="@+id/star2"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                            <ImageView
+                                android:id="@+id/star3"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                            <ImageView
+                                android:id="@+id/star4"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                            <ImageView
+                                android:id="@+id/star5"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                            <ImageView
+                                android:id="@+id/star6"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                            <ImageView
+                                android:id="@+id/star7"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                            <ImageView
+                                android:id="@+id/star8"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                            <ImageView
+                                android:id="@+id/star9"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                            <ImageView
+                                android:id="@+id/star10"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/lockstar"/>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp">
+
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Level 1"
+                        android:textSize="14sp"
+                        android:textColor="#fff"/>
+
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Level 2"
+                        android:textSize="14sp"
+                        android:textColor="#fff"/>
+
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Level 3"
+                        android:textSize="12sp"
+                        android:textColor="#fff"/>
+
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Level 4"
+                        android:textSize="12sp"
+                        android:textColor="#fff"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/books"/>
+
+                <TextView
+                    android:id="@+id/testlevel"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffff"
+                    android:text="Level1"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:text="5"
+            android:textColor="#289fef"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="Question Answered"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/Qtrue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="50dp"
+            android:text="null"
+            android:textColor="#289fef"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="Right Answer"
+            android:textSize="18sp"/>
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/no1"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:cardBackgroundColor="#f6f6f6"
+                card_view:cardCornerRadius="8dp"
+                android:elevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/books"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/number1"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:text="Soal 1"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/is1"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:text="is"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/statusno1"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/true1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/checktrue"/>
+
+                        <ImageView
+                            android:id="@+id/false1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:alpha="0"
+                            android:src="@drawable/checkfalse"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/no2"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#f6f6f6"
+                card_view:cardCornerRadius="8dp"
+                android:elevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/books"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/number2"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:text="Soal 2"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/is2"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:text="is"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/statusno2"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/true2"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/checktrue"/>
+
+                        <ImageView
+                            android:id="@+id/false2"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:alpha="0"
+                            android:src="@drawable/checkfalse"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/no3"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#f6f6f6"
+                card_view:cardCornerRadius="8dp"
+                android:elevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/books"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/number3"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:text="Soal 3"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/is3"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:text="is"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/statusno3"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/true3"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/checktrue"/>
+
+                        <ImageView
+                            android:id="@+id/false3"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:alpha="0"
+                            android:src="@drawable/checkfalse"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/no4"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#f6f6f6"
+                card_view:cardCornerRadius="8dp"
+                android:elevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/books"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/number4"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:text="Soal 4"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/is4"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:text="is"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/statusno4"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/true4"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/checktrue"/>
+
+                        <ImageView
+                            android:id="@+id/false4"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:alpha="0"
+                            android:src="@drawable/checkfalse"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/no5"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#f6f6f6"
+                card_view:cardCornerRadius="8dp"
+                android:elevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/books"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/number5"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:text="Soal 5"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/is5"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:text="is"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/statusno5"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:textSize="25sp"
+                        android:gravity="center_vertical"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/true5"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/checktrue"/>
+
+                        <ImageView
+                            android:id="@+id/false5"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:alpha="0"
+                            android:src="@drawable/checkfalse"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:text="Total Score"
+                android:gravity="center_vertical"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/Tscore"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:text="100"
+                android:textSize="25sp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="#289fef"/>
+
+            <Button
+                android:id="@+id/home"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="Next"
+                android:textSize="20sp"
+                android:layout_marginLeft="50dp"
+                android:background="#47af4e"
+                android:layout_gravity="center_vertical"
+                android:elevation="5dp"/>
+        </LinearLayout>
+
+    </Toolbar>
+
+</LinearLayout>

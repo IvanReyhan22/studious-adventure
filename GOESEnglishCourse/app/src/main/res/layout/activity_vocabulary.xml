@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF3F3"
+    tools:context=".vocabulary">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="#32CD32">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:srcCompat="@drawable/x" />
+
+            <Button
+                android:id="@+id/next_move"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_score"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="200dp"
+                android:elevation="4dp"
+                android:translationZ="1dp"
+                android:text="0"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="360dp"
+        android:layout_height="490dp"
+        android:outlineAmbientShadowColor="#000"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="5dp"
+        android:translationZ="5dp"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="hi"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="55dp"
+            android:text="hai"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/speaker"/>
+
+
+
+        <ImageButton
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/border_black"/>
+
+        <TextView
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="10dp"
+            android:text="Digunkana untuk menyapa orang yang sudah akrab atau agar terdengar sedikit formal kamu bisa menggunakan Hello"
+            android:textAlignment="center"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="370dp"
+            android:layout_marginLeft="20dp"
+            android:text="1/20"
+            android:textSize="20dp"/>
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="420dp"
+            android:layout_marginLeft="300dp"
+            android:src="@drawable/next"/>
+
+    </FrameLayout>
+
+
+</RelativeLayout>
+

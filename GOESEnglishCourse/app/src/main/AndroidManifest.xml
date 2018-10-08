@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ezyindustries.goes_englishcourse">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".spalsh_screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".register" />
+        <activity android:name=".forgot_password" />
+        <activity android:name=".main_page" />
+        <activity android:name=".vocabulary" />
+        <activity android:name=".vocabulary2" />
+        <activity android:name=".videos" />
+        <activity android:name=".vocabulary10" />
+        <activity android:name=".basiclearning" />
+        <activity android:name=".resultlayout" />
+        <activity android:name=".login2_0" />
+        <activity android:name=".profile" />
+        <activity android:name=".toefl" />
+        <activity android:name=".friendlist" />
+        <activity android:name=".setting2" />
+        <activity android:name=".change_email" />
+        <activity android:name=".Youtube" />
+        <activity android:name=".edit_form"></activity>
+    </application>
+
+</manifest>

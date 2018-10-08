@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1003280155101",
+    "firebase_url": "https://goesapp-1159e.firebaseio.com",
+    "project_id": "goesapp-1159e",
+    "storage_bucket": "goesapp-1159e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003280155101:android:727f110e2db76789",
+        "android_client_info": {
+          "package_name": "com.ezyindustries.goesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003280155101-ldj1ua2bs8h17oeprlqohfisehi677p1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB53JOgXeYGKYJAtrQ3X-HLHHIfX49omxo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
