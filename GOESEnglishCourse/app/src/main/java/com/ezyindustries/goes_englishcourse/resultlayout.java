@@ -322,21 +322,28 @@ public class resultlayout extends AppCompatActivity {
                     case "level3" :
                         latihanU = "level4";
                         break;
-                    case "level" :
-                        latihanU = "level4";
+                    case "leve4" :
+                        latihanU = "level5";
                         break;
-                    case "level3" :
-                        latihanU = "level4";
+                    case "level5" :
+                        latihanU = "level6";
                         break;
-                    case "level3" :
-                        latihanU = "level4";
+                    case "level6" :
+                        latihanU = "level7";
                         break;
-                    case "level3" :
-                        latihanU = "level4";
+                    case "level7" :
+                        latihanU = "level8";
                         break;
-                    case "level" :
-                        latihanU = "level4";
+                    case "level8" :
+                        latihanU = "level9";
                         break;
+                    case "level9" :
+                        latihanU = "level10";
+                        break;
+                        default:
+                            Toast.makeText(getApplicationContext(), "Level Exeeded",Toast.LENGTH_SHORT).show();
+                            break;
+
                 }
                 dataSnapshot.getRef().child("latihan").setValue(latihanU);
                 ur.reload();

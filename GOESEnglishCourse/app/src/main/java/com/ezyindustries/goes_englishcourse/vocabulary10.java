@@ -30,7 +30,7 @@ public class vocabulary10 extends AppCompatActivity {
     private ImageView back;
     private LinearLayout nextl;
     private CardView a, b, c, d;
-    private TextView question, mscore, number, test1, Level;
+    private TextView question, mscore, number, Level;
     private TextView Answer_A, Answer_B, Answer_C, Answer_D;
     private String Correct, questiondata, level;
     private Integer questionnumber = 0;
@@ -52,7 +52,6 @@ public class vocabulary10 extends AppCompatActivity {
         question = (TextView) findViewById(R.id.question);
         mscore = (TextView) findViewById(R.id.mscore);
         number = (TextView) findViewById(R.id.number);
-        test1 = (TextView) findViewById(R.id.test1);
         Level = (TextView) findViewById(R.id.level);
 
         Answer_A = (TextView) findViewById(R.id.Answer_A);
@@ -212,7 +211,6 @@ public class vocabulary10 extends AppCompatActivity {
 
     private void questiontruecounter(){
         qtrue += 1;
-        test1.setText("" + qtrue);
     }
 
     private void scoreupdete(int point){ mscore.setText("" + score);}

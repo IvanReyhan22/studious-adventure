@@ -2,6 +2,9 @@ package com.ezyindustries.goes_englishcourse;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -11,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +35,9 @@ public class main_page extends AppCompatActivity {
     private ImageView rating;
     private CardView test;
     private TextView Name;
+    private DrawerLayout drawerLayout;
+    private NavigationView nv;
+    private ActionBarDrawerToggle t;
 
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -48,9 +55,34 @@ public class main_page extends AppCompatActivity {
         Name = (TextView) findViewById(R.id.name);
 
         Auth = FirebaseAuth.getInstance();
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("user");
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main);
+        t = new ActionBarDrawerToggle(this, drawerLayout,R.string.app_name, R.string.app_name);
+
+        drawerLayout.addDrawerListener(t);
+        t.syncState();
+
+        nv = (NavigationView)findViewById(R.id.nv);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id)
+                {
+                    case R.id.account:
+                        Toast.makeText(getApplicationContext(), "My Account",Toast.LENGTH_SHORT).show();
+                    case R.id.email:
+                        Toast.makeText(getApplicationContext(), "Configure Email",Toast.LENGTH_SHORT).show();
+                    case R.id.friendlist:
+                        Toast.makeText(getApplicationContext(), "Friend List",Toast.LENGTH_SHORT).show();
+                    default:
+                        return true;
+                }
+
+            }
+        });
 
         vocabulary.setOnClickListener(new View.OnClickListener() {
             @Override

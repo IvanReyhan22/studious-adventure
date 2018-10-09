@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/account"
+            android:icon="@drawable/accountori"
+            android:title="My Account"/>
+        <item android:id="@+id/Email"
+            android:icon="@drawable/email"
+            android:title="Configure Email"/>
+        <item android:id="@+id/friendlist"
+            android:icon="@drawable/friend"
+            android:title="Friend List"/>
+    </group>
+
+    <item android:title="Sub Item">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/download"
+                    android:icon="@drawable/friend"
+                    android:title="Download"/>
+                <item android:id="@+id/logout"
+                    android:icon="@drawable/friend"
+                    android:title="Logout"/>
+            </group>
+
+        </menu>
+
+    </item>
+
+    <item android:title="Double Sub Item">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/test1"
+                    android:icon="@drawable/friend"
+                    android:title="Download"/>
+                <item android:id="@+id/test3"
+                    android:icon="@drawable/friend"
+                    android:title="Logout"/>
+            </group>
+
+        </menu>
+
+    </item>
+
+</menu>
