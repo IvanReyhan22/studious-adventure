@@ -148,7 +148,7 @@ public class profile extends AppCompatActivity {
                     User user = dataSnapshot.getValue(User.class);
                     nickname.setText(Objects.requireNonNull(user).getNickname());
                     descirption.setText(user.getDeskripsion());
-                    levelScore.setText(user.getLatihan());
+//                    levelScore.setText(user.getLatihan());
                     email.setText(user.getEmail());
                     website.setText(user.getWebsite());
                     mobilenumber.setText(user.getPhone());
@@ -163,6 +163,22 @@ public class profile extends AppCompatActivity {
             }
         });
 
+    }
+    private void getDataScore(){
+        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("Score").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    scoreData sd = dataSnapshot.getValue(scoreData.class);
+                    levelScore.setText(Objects.requireNonNull(sd).getVocabularyScore());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
 

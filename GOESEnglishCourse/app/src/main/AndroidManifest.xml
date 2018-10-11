@@ -34,7 +34,9 @@
         <activity android:name=".setting2" />
         <activity android:name=".change_email" />
         <activity android:name=".Youtube" />
-        <activity android:name=".edit_form"></activity>
+        <activity android:name=".edit_form" />
+        <activity android:name=".Score.insertsoal" />
+        <activity android:name=".tes_reading"></activity>
     </application>
 
 </manifest>

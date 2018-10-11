@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="192dp"
-    android:background="?attr/colorPrimaryDark"
-    android:padding="16dp"
+    android:layout_height="175dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
-    android:gravity="bottom">
+    android:gravity="bottom"
+    tools:context=".main_page">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Username Goes Here"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/scene1"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/User"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="woke"
+            android:layout_marginTop="-50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/pic"
+            android:textColor="#fff"
+            android:textSize="25sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+
+    </RelativeLayout>
 
 </LinearLayout>

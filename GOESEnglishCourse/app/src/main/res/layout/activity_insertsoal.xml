@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="Score.insertsoal">
+
+    <EditText
+        android:id="@+id/a"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="AnswerA"/>
+
+
+    <EditText
+        android:id="@+id/b"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="AnswerB"/>
+
+
+    <EditText
+        android:id="@+id/c"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="AnswerC"/>
+
+
+    <EditText
+        android:id="@+id/d"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="AnswerD"/>
+
+
+    <EditText
+        android:id="@+id/Correct"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Correct"/>
+
+
+    <EditText
+        android:id="@+id/question"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="question"/>
+
+
+    <EditText
+        android:id="@+id/status"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="status"/>
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simpan"/>
+
+</LinearLayout>

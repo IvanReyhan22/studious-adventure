@@ -30,9 +30,10 @@ public class toefl extends AppCompatActivity {
 
     private ImageView locked, unlocked;
     private CardView choiceA,choiceB,choiceC,choiceD;
-    private TextView a, b,c,d, idnumber;
+    private TextView a, b,c,d, idnumber, judul;
     private Integer number = 0, audioList= 0,questionnumber = 0;
-    private String ok;
+    private String ok, Correct;
+    private Integer no= 0;
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("toeflListening");
 
@@ -42,7 +43,7 @@ public class toefl extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toefl);
         idnumber = (TextView)findViewById(R.id.idnumber);
-
+        judul = (TextView)findViewById(R.id.judul);
         unlocked = (ImageView) findViewById(R.id.unlocked);
         locked = (ImageView) findViewById(R.id.locked);
 
@@ -53,15 +54,13 @@ public class toefl extends AppCompatActivity {
         scoreupdete(number);
         start();
 
+        judul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(toefl.this, tes_reading.class));
+            }
+        });
     }
-
-    /*private void updatestatus(){
-        try{
-            mRootRef.child("Tes/Paket1/1/Status").setValue("Gold");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }*/
 
     private void scoreupdete(int point){ idnumber.setText("" + questionnumber);}
 
@@ -86,14 +85,12 @@ public class toefl extends AppCompatActivity {
             }
         });
 
-        //animator.setDuration(1500);
         animator.end();
     }
 
     private void start(){
         scoreupdete(number);
         questionnumber ++;
-        //audioList ++;
         setLock();
         scoreupdete(audioList);
 
@@ -119,6 +116,52 @@ public class toefl extends AppCompatActivity {
                                             //audioList ++;
                                             scoreupdete(questionnumber);
                                             start();
+                                            no +=1;
+                                            if(a.getText().equals(Correct)){
+                                             updatestatus();
+                                            }
+
+                                        }
+                                    });
+                                    choiceB.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            //audioList ++;
+                                            scoreupdete(questionnumber);
+                                            start();
+                                            no +=1;
+                                            if(a.getText().equals(Correct)){
+                                                updatestatus();
+                                            }
+
+
+                                        }
+                                    });
+                                    choiceC.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            //audioList ++;
+                                            scoreupdete(questionnumber);
+                                            start();
+                                            no +=1;
+                                            if(a.getText().equals(Correct)){
+                                                updatestatus();
+                                            }
+
+
+                                        }
+                                    });
+                                    choiceD.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            //audioList ++;
+                                            scoreupdete(questionnumber);
+                                            start();
+                                            no +=1;
+                                            if(a.getText().equals(Correct)){
+                                                updatestatus();
+                                            }
+
 
                                         }
                                     });
@@ -194,65 +237,30 @@ public class toefl extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*final StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("listeningTest/"+audioList+".mp3");
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        DatabaseReference mCorrect= mRootRef.child("Tes/Paket1/" + questionnumber +"/AnswerD");
+        mCorrect.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(Uri uri) {
-                //Log.e("Tuts+", "uri: " + uri.toString());
-                ok = String.valueOf(uri);
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                try{
-                    mediaPlayer.setDataSource(""+ok+"");
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mediaPlayer.start();
-                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                public void onCompletion(MediaPlayer mp) {
-                                    Toast.makeText(toefl.this,"Choose the answer now",Toast.LENGTH_LONG).show();
-                                    choiceA.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            //audioList ++;
-                                            scoreupdete(audioList);
-                                            start();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String correct = dataSnapshot.getValue(String.class);
+                Correct = correct;
+            }
 
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                    mediaPlayer.prepare();
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(toefl.this,"Failed To get Data Please Restart",Toast.LENGTH_LONG).show();
-                e.printStackTrace();
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
-        });*/
+        });
+
+
+    }
+
+    private void updatestatus(){
+        try{
+            mRootRef.child("Tes/Paket1/"+no+"").setValue("Gold");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
-//contructor exstend
 }

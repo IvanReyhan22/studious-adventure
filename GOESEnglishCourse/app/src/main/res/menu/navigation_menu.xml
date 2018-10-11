@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:itemBackground="@drawable/background_active">
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/account"
@@ -13,34 +15,15 @@
             android:title="Friend List"/>
     </group>
 
-    <item android:title="Sub Item">
+    <item android:title="Other">
         <menu>
             <group android:checkableBehavior="single">
-                <item android:id="@+id/download"
-                    android:icon="@drawable/friend"
-                    android:title="Download"/>
                 <item android:id="@+id/logout"
                     android:icon="@drawable/friend"
-                    android:title="Logout"/>
+                    android:title="logout"/>
             </group>
 
         </menu>
 
     </item>
-
-    <item android:title="Double Sub Item">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item android:id="@+id/test1"
-                    android:icon="@drawable/friend"
-                    android:title="Download"/>
-                <item android:id="@+id/test3"
-                    android:icon="@drawable/friend"
-                    android:title="Logout"/>
-            </group>
-
-        </menu>
-
-    </item>
-
 </menu>
