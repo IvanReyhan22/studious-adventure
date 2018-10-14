@@ -45,6 +45,7 @@ public class resultlayout extends AppCompatActivity {
     private Integer score, qtrue;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference ref;
+    private Integer key2 = 2;
     private FirebaseUser ur;
     private FirebaseUser Us;
     private FirebaseAuth Auth;
@@ -86,26 +87,18 @@ public class resultlayout extends AppCompatActivity {
         ur = Auth.getCurrentUser();
         Us = Auth.getCurrentUser();
 
+        Shows();
+        updateScore();
+        checkStatus();
+        setonclicklistener();
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(resultlayout.this, main_page.class);
-                startActivity(intent);
+
+                updatelevel();
             }
         });
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(resultlayout.this, vocabulary10.class);
-                startActivity(intent);
-            }
-        });
-        updatelevel();
-        updateScore();
-        checkStatus();
-        Shows();
-
     }
 
     private void Shows() {
@@ -116,12 +109,6 @@ public class resultlayout extends AppCompatActivity {
         Tscore.setText("" + score);
         Qtrue.setText("" + qtrue);
         total = Integer.parseInt(Tscore.getText().toString());
-        if(total <= 20){
-            pass = false;
-        }else{
-            pass = true;
-        }
-
     }
 
     private void checkStatus() {
@@ -308,18 +295,17 @@ public class resultlayout extends AppCompatActivity {
 
     private void updatelevel() {
         total = Integer.parseInt(Tscore.getText().toString());
-//        test2.setText(Integer.parseInt(Tscore.getText().toString()));
-
-        if(total <= 20){
+        if(total  <= 20) {
             Dialog();
-        }else{
+        }else {
+
             ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     ref.child(Auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                 User user = dataSnapshot.getValue(User.class);
                                 test.setText(Objects.requireNonNull(user).getLatihan());
                             }
@@ -331,32 +317,32 @@ public class resultlayout extends AppCompatActivity {
                         }
                     });
 
-                    switch (test.getText().toString()){
-                        case "level1" :
+                    switch (test.getText().toString()) {
+                        case "level1":
                             latihanU = "level2";
                             break;
-                        case "level2" :
+                        case "level2":
                             latihanU = "level3";
                             break;
-                        case "level3" :
+                        case "level3":
                             latihanU = "level4";
                             break;
-                        case "leve4" :
+                        case "leve4":
                             latihanU = "level5";
                             break;
-                        case "level5" :
+                        case "level5":
                             latihanU = "level6";
                             break;
-                        case "level6" :
+                        case "level6":
                             latihanU = "level7";
                             break;
-                        case "level7" :
+                        case "level7":
                             latihanU = "level8";
                             break;
-                        case "level8" :
+                        case "level8":
                             latihanU = "level9";
                             break;
-                        case "level9" :
+                        case "level9":
                             latihanU = "level10";
                             break;
                         default:
@@ -374,7 +360,6 @@ public class resultlayout extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     private  void updateScore(){
@@ -405,9 +390,10 @@ public class resultlayout extends AppCompatActivity {
         alertDialog.setCustomTitle(title);
 
         TextView info = new TextView(this);
-        info.setText("Sorry You dont pass the level, Do you want to do it again? ");
+        info.setText("You dont pass the level,You only have "+Tscore.getText()+" score while you need 30 score to pass.Do you want to do it again? ");
         info.setGravity(Gravity.CENTER_HORIZONTAL);
         info.setTextColor(Color.BLACK);
+        info.setPadding(15, 0, 15,0);
         alertDialog.setView(info);
 
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
@@ -420,7 +406,8 @@ public class resultlayout extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                startActivity(new Intent(resultlayout.this, main_page.class));
+                finish();
             }
         });
 
@@ -429,7 +416,7 @@ public class resultlayout extends AppCompatActivity {
 
         final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
         LinearLayout.LayoutParams neuturalBtn = (LinearLayout.LayoutParams) okBT.getLayoutParams();
-        neuturalBtn.gravity = Gravity.RIGHT;
+        neuturalBtn.gravity = Gravity.LEFT;
         okBT.setPadding(50, 10, 10, 10);
         okBT.setTextColor(Color.BLACK);
         okBT.setLayoutParams(neuturalBtn);
@@ -437,8 +424,52 @@ public class resultlayout extends AppCompatActivity {
         final Button cancleBT = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         LinearLayout.LayoutParams negativeBtn = (LinearLayout.LayoutParams) cancleBT.getLayoutParams();
         negativeBtn.gravity = Gravity.RIGHT;
-        cancleBT.setPadding(50, 10, 10, 10);
+        cancleBT.setPadding(60, 10, 20, 10);
         cancleBT.setTextColor(Color.RED);
         cancleBT.setLayoutParams(negativeBtn);
+    }
+
+    private void setonclicklistener(){
+        no1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(resultlayout.this, VocabularyEx.class);
+                intent.putExtra("key", 1);
+                startActivity(intent);
+            }
+        });
+        no2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(resultlayout.this, VocabularyEx.class);
+                intent.putExtra("key", 2);
+                startActivity(intent);
+
+            }
+        });
+        no3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(resultlayout.this, VocabularyEx.class);
+                intent.putExtra("key", 3);
+                startActivity(intent);
+            }
+        });
+        no4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(resultlayout.this, VocabularyEx.class);
+                intent.putExtra("key", 4);
+                startActivity(intent);
+            }
+        });
+        no5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(resultlayout.this, VocabularyEx.class);
+                intent.putExtra("key", 5);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -36,7 +36,8 @@
         <activity android:name=".Youtube" />
         <activity android:name=".edit_form" />
         <activity android:name=".Score.insertsoal" />
-        <activity android:name=".tes_reading"></activity>
+        <activity android:name=".tes_reading" />
+        <activity android:name=".VocabularyEx"></activity>
     </application>
 
 </manifest>

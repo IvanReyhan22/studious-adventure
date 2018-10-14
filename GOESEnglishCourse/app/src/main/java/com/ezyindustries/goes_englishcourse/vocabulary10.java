@@ -1,8 +1,11 @@
 package com.ezyindustries.goes_englishcourse;
 
+import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -24,6 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static android.graphics.Color.rgb;
 
 public class vocabulary10 extends AppCompatActivity {
 
@@ -35,10 +42,12 @@ public class vocabulary10 extends AppCompatActivity {
     private String Correct, questiondata, level;
     private Integer questionnumber = 0;
     private Integer score = 0, qtrue = 0;
-    private Integer limitation = 6;
+    private Integer limitation = 5;
     private FirebaseAuth Auth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference ref;
+
+    private Animation scale;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -64,7 +73,7 @@ public class vocabulary10 extends AppCompatActivity {
         c = (CardView) findViewById(R.id.c);
         d = (CardView) findViewById(R.id.d);
 
-
+        scale =AnimationUtils.loadAnimation(getApplicationContext(),R.anim.scale_animation);
         Auth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("user");
@@ -81,23 +90,38 @@ public class vocabulary10 extends AppCompatActivity {
             }
         });
 
+
+
         Answer_A.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (Answer_A.getText().equals(Correct)) {
-                    Toast.makeText(vocabulary10.this, "Good Job", Toast.LENGTH_SHORT).show();
+                    a.startAnimation(scale);
+                    backgroundChangeATrue();
                     score = score + 10;
                     scoreupdete(score);
                     updatestatus();
-                    updateQuestion();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateQuestion();
+                        }
+                    },1000);
                     numbershow();
                     questiontruecounter();
                     limit();
                 } else {
                     a.startAnimation(Shake);
-                    Toast.makeText(vocabulary10.this, "Oops! Wrong Answer", Toast.LENGTH_SHORT).show();
+                    backgroundChangeA();
                     updatestatusfalse();
-                    updateQuestion();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateQuestion();
+                        }
+                    },1000);
                     numbershow();
                     limit();
                 }
@@ -108,19 +132,32 @@ public class vocabulary10 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Answer_B.getText().equals(Correct)) {
-                    Toast.makeText(vocabulary10.this, "Good Job", Toast.LENGTH_SHORT).show();
+                    b.startAnimation(scale);
+                    backgroundChangeBTrue();
                     score = score + 10;
                     scoreupdete(score);
                     updatestatus();
-                    updateQuestion();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateQuestion();
+                        }
+                    },1000);
                     numbershow();
                     questiontruecounter();
                     limit();
                 } else {
                     b.startAnimation(Shake);
-                    Toast.makeText(vocabulary10.this, "Oops! Wrong Answer", Toast.LENGTH_SHORT).show();
+                    backgroundChangeB();
                     updatestatusfalse();
-                    updateQuestion();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateQuestion();
+                        }
+                    },1000);
                     numbershow();
                     limit();
                 }
@@ -131,19 +168,32 @@ public class vocabulary10 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Answer_C.getText().equals(Correct)) {
-                    Toast.makeText(vocabulary10.this, "Good Job", Toast.LENGTH_SHORT).show();
+                    c.startAnimation(scale);
+                    backgroundChangeCTrue();
                     score = score + 10;
                     scoreupdete(score);
                     updatestatus();
-                    updateQuestion();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateQuestion();
+                        }
+                    },1000);
                     numbershow();
                     questiontruecounter();
                     limit();
                 } else {
                     c.startAnimation(Shake);
-                    Toast.makeText(vocabulary10.this, "Oops! Wrong Answer", Toast.LENGTH_SHORT).show();
+                    backgroundChangeC();
                     updatestatusfalse();
-                    updateQuestion();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateQuestion();
+                        }
+                    },1000);
                     numbershow();
                     limit();
                 }
@@ -154,26 +204,127 @@ public class vocabulary10 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Answer_D.getText().equals(Correct)) {
-                    Toast.makeText(vocabulary10.this, "Good Job", Toast.LENGTH_SHORT).show();
+                    d.startAnimation(scale);
+                    backgroundChangeDTrue();
                     score = score + 10;
                     scoreupdete(score);
                     updatestatus();
-                    updateQuestion();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateQuestion();
+                        }
+                    },1000);
                     numbershow();
                     questiontruecounter();
                     limit();
                 } else {
                     d.startAnimation(Shake);
-                    Toast.makeText(vocabulary10.this, "Oops! Wrong Answer", Toast.LENGTH_SHORT).show();
+                    backgroundChangeD();
                     updatestatusfalse();
-                    updateQuestion();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateQuestion();
+                        }
+                    },1000);
                     numbershow();
                     limit();
                 }
             }
         });
+    }
+
+    private void backgroundChangeA(){
+        a.setCardBackgroundColor(rgb(231, 76, 60));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                a.setCardBackgroundColor(Color.WHITE);
+            }
+        },1000);
+    }
+
+    private void backgroundChangeB(){
+        b.setCardBackgroundColor(rgb(231, 76, 60));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                b.setCardBackgroundColor(Color.WHITE);
+            }
+        },1000);
+    }
+
+    private void backgroundChangeC(){
+        c.setCardBackgroundColor(rgb(231, 76, 60));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                c.setCardBackgroundColor(Color.WHITE);
+            }
+        },1000);
+    }
+
+    private void backgroundChangeD(){
+        d.setCardBackgroundColor(rgb(231, 76, 60));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                d.setCardBackgroundColor(Color.WHITE);
+            }
+        },1000);
+    }
 
 
+//true
+    private void backgroundChangeATrue(){
+        a.setCardBackgroundColor(rgb(39, 174, 96));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                a.setCardBackgroundColor(Color.WHITE);
+            }
+        },1000);
+    }
+
+    private void backgroundChangeBTrue(){
+        b.setCardBackgroundColor(rgb(39, 174, 96));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                b.setCardBackgroundColor(Color.WHITE);
+            }
+        },1000);
+    }
+
+    private void backgroundChangeCTrue(){
+        c.setCardBackgroundColor(rgb(39, 174, 96));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                c.setCardBackgroundColor(Color.WHITE);
+            }
+        },1000);
+    }
+
+    private void backgroundChangeDTrue(){
+        d.setCardBackgroundColor(rgb(39, 174, 96));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                d.setCardBackgroundColor(Color.WHITE);
+            }
+        },1000);
     }
 
     private void levelData(){
