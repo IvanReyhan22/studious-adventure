@@ -379,6 +379,12 @@ public class resultlayout extends AppCompatActivity {
 
     public void Dialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//
+//        ImageView image = new ImageView(this);
+//        image.setImageResource(R.drawable.warning);
+//        image.setMaxWidth(20);
+//        image.setMaxHeight(20);
+//        alertDialog.setIcon(R.drawable.warning);
 
         TextView title = new TextView(this);
 

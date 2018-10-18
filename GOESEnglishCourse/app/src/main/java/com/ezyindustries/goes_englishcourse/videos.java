@@ -1,5 +1,6 @@
 package com.ezyindustries.goes_englishcourse;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -31,13 +32,10 @@ public class videos extends AppCompatActivity {
 
 
     private ImageView back;
-    private ProgressBar loading;
     private RecyclerView Listvideo;
     private FirebaseAuth Auth;
     private FirebaseDatabase mDatabase;
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class videos extends AppCompatActivity {
         back = (ImageView) findViewById(R.id.back);
 
         Auth = FirebaseAuth.getInstance();
-        loading = (ProgressBar) findViewById(R.id.loading);
         Listvideo = (RecyclerView) findViewById(R.id.Listvideo);
         Listvideo.setLayoutManager(new LinearLayoutManager(this));
         Listvideo.setHasFixedSize(true);
@@ -64,6 +61,10 @@ public class videos extends AppCompatActivity {
     }
 
     private void getData(){
+        final ProgressDialog dialog = new ProgressDialog(videos.this);
+        dialog.setMessage("Hold on we loading up data for you....");
+        dialog.show();
+
         Query query = FirebaseDatabase.getInstance().getReference("Video").limitToLast(50);
 
         FirebaseRecyclerOptions<refData> options = new FirebaseRecyclerOptions.Builder<refData>()
@@ -76,7 +77,7 @@ public class videos extends AppCompatActivity {
                 Picasso.get().load(model.getUrl()).into(holder.Simage, new Callback() {
                     @Override
                     public void onSuccess() {
-
+                        dialog.hide();
                     }
 
                     @Override
@@ -110,7 +111,8 @@ public class videos extends AppCompatActivity {
 
     }
 
-    private void search(){
-        //String name = searchText.toLowerCase();
+    private void ProgresDialog(){
+
     }
+
 }

@@ -37,7 +37,8 @@
         <activity android:name=".edit_form" />
         <activity android:name=".Score.insertsoal" />
         <activity android:name=".tes_reading" />
-        <activity android:name=".VocabularyEx"></activity>
+        <activity android:name=".VocabularyEx" />
+        <activity android:name=".Vocabulary_fetchUp"></activity>
     </application>
 
 </manifest>

@@ -84,6 +84,7 @@ public class profile extends AppCompatActivity {
 
         nickname.setText("hey");
         getData();
+        getDataScore();
     }
 
     protected void signout() {
@@ -162,23 +163,46 @@ public class profile extends AppCompatActivity {
                 Toast.makeText(profile.this, "Failed Retrieve data please restart!." + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+
     private void getDataScore(){
-        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("Score").addValueEventListener(new ValueEventListener() {
+        ref.child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Score").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     scoreData sd = dataSnapshot.getValue(scoreData.class);
+                    Integer vocab =Integer.parseInt(Objects.requireNonNull(sd).getVocabularyScore());
+                    Integer toef = Integer.parseInt(sd.getToeflScore());
+                    Integer total = vocab + toef;
                     levelScore.setText(Objects.requireNonNull(sd).getVocabularyScore());
+                    toeflScore.setText(sd.getToeflScore());
+                    String Ttotal = String.valueOf(total);
+                    Total.setText(Ttotal);
+
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                Toast.makeText(profile.this, "Failed Retrieve data please restart!." + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
             }
         });
+//        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("Score").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+//                    scoreData sd = dataSnapshot.getValue(scoreData.class);
+//                    levelScore.setText(Objects.requireNonNull(sd).getVocabularyScore());
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 }
 

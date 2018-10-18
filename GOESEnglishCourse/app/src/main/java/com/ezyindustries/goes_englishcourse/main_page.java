@@ -113,7 +113,7 @@ public class main_page extends AppCompatActivity {
         vocabulary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(main_page.this, vocabulary10.class);
+                Intent intent = new Intent(main_page.this, Vocabulary_fetchUp.class);
                 startActivity(intent);
             }
         });

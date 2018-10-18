@@ -110,7 +110,13 @@ public class vocabulary10 extends AppCompatActivity {
                     },1000);
                     numbershow();
                     questiontruecounter();
-                    limit();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            limit();
+                        }
+                    },1000);
+
                 } else {
                     a.startAnimation(Shake);
                     backgroundChangeA();
@@ -123,7 +129,12 @@ public class vocabulary10 extends AppCompatActivity {
                         }
                     },1000);
                     numbershow();
-                    limit();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            limit();
+                        }
+                    },1000);
                 }
             }
         });
@@ -146,7 +157,13 @@ public class vocabulary10 extends AppCompatActivity {
                     },1000);
                     numbershow();
                     questiontruecounter();
-                    limit();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            limit();
+                        }
+                    },1000);
+
                 } else {
                     b.startAnimation(Shake);
                     backgroundChangeB();
@@ -159,7 +176,12 @@ public class vocabulary10 extends AppCompatActivity {
                         }
                     },1000);
                     numbershow();
-                    limit();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            limit();
+                        }
+                    },1000);
                 }
             }
         });
@@ -182,7 +204,12 @@ public class vocabulary10 extends AppCompatActivity {
                     },1000);
                     numbershow();
                     questiontruecounter();
-                    limit();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            limit();
+                        }
+                    },1000);
                 } else {
                     c.startAnimation(Shake);
                     backgroundChangeC();
@@ -195,7 +222,13 @@ public class vocabulary10 extends AppCompatActivity {
                         }
                     },1000);
                     numbershow();
-                    limit();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            limit();
+                        }
+                    },1000);
+
                 }
             }
         });
