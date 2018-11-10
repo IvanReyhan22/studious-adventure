@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.TimerTask;
 
@@ -214,12 +215,19 @@ public class VocabularyEx extends AppCompatActivity {
 
                     }
                 });
-                ref.child(pLevel).child(KEY).child("Ex_A").addValueEventListener(new ValueEventListener() {
+                ref.child(pLevel).child(KEY).child("Explain").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String exa = dataSnapshot.getValue(String.class);
-                        Ex_A.setText(exa);
-
+                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                            String Exa = dataSnapshot.child("Ex_a").getValue(String.class);
+                            Ex_A.setText(Exa);
+                            String Exb = dataSnapshot.child("Ex_b").getValue(String.class);
+                            Ex_B.setText(Exb);
+                            String Exc = dataSnapshot.child("Ex_c").getValue(String.class);
+                            Ex_C.setText(Exc);
+                            String Exd = dataSnapshot.child("Ex_d").getValue(String.class);
+                            Ex_D.setText(Exd);
+                        }
                     }
 
                     @Override
@@ -242,8 +250,7 @@ public class VocabularyEx extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(VocabularyEx.this, resultlayout.class);
-                startActivity(intent);
+                startActivity(new Intent(VocabularyEx.this, resultlayout.class));
                 finish();
             }
         });

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezyindustries.goes_englishcourse.Score.insertsoal;
+import com.ezyindustries.goes_englishcourse.Score.scoreData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,9 +35,9 @@ import java.util.Objects;
 
 public class main_page extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference ref;
     private FirebaseAuth Auth;
-    private CardView vocabulary;
+    private CardView vocabulary, picName;
     private CardView basic;
     private CardView video;
 //    private ImageView rating;
@@ -45,7 +46,7 @@ public class main_page extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView nv;
     private ActionBarDrawerToggle t;
-    private TextView User;
+    private TextView User,level,Total,toeflscore;
 
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -58,20 +59,26 @@ public class main_page extends AppCompatActivity {
         vocabulary = (CardView) findViewById(R.id.vocabulary);
         basic = (CardView)findViewById(R.id.lesson);
         video = (CardView) findViewById(R.id.videos) ;
-//        rating = (ImageView) findViewById(R.id.rating);
         test = (CardView) findViewById(R.id.test);
         Name = (TextView) findViewById(R.id.name);
-        User= (TextView) findViewById(R.id.User);
+        User = (TextView) findViewById(R.id.User);
+        level= (TextView) findViewById(R.id.level);
+        Total= (TextView) findViewById(R.id.total);
+        toeflscore= (TextView) findViewById(R.id.toeflScore);
 
         Auth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("user");
+        ref = firebaseDatabase.getReference("user");
 
         drawerLayout = (DrawerLayout)findViewById(R.id.activity_main);
         t = new ActionBarDrawerToggle(this, drawerLayout,R.string.app_name, R.string.app_name);
 
         drawerLayout.addDrawerListener(t);
         t.syncState();
+
+        picName=(CardView)findViewById(R.id.picname);
+
+        picName.setCardBackgroundColor(Color.TRANSPARENT);
 
 //        LayoutInflater inflater = getLayoutInflater();
 //        View listHeaderView = inflater.inflate(R.layout.navigation_header, null, false);
@@ -103,12 +110,6 @@ public class main_page extends AppCompatActivity {
             }
         });
 
-        Name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(main_page.this, insertsoal.class));
-            }
-        });
 
         vocabulary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,26 +135,21 @@ public class main_page extends AppCompatActivity {
             }
         });
 
-//        rating.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(main_page.this, setting2.class);
-//                startActivity(intent);
-//            }
-//        });
 
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(main_page.this, toefl.class);
+                Intent intent = new Intent(main_page.this, toeflFetching.class);
                 startActivity(intent);
             }
         });
         getName();
+//        getScore();
+        getDataScore();
     }
 
     private void getName(){
-        databaseReference.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("nickname").addValueEventListener(new ValueEventListener() {
+        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("nickname").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String nama= dataSnapshot.getValue(String.class);
@@ -167,6 +163,33 @@ public class main_page extends AppCompatActivity {
         });
     }
 
+
+    private void getDataScore(){
+        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("Score").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    scoreData sd = dataSnapshot.getValue(scoreData.class);
+                    Integer vocab =Integer.parseInt(Objects.requireNonNull(sd).getVocabularyScore());
+                    Integer toef = Integer.parseInt(sd.getToeflScore());
+                    Integer total = vocab + toef;
+                    level.setText(Objects.requireNonNull(sd).getVocabularyScore());
+                    toeflscore.setText(sd.getToeflScore());
+                    String Ttotal = String.valueOf(total);
+                    Total.setText(Ttotal);
+                    String key = ref.push().getKey();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                Toast.makeText(main_page.this, "Failed Retrieve data please restart!." + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void Dialog(){
         AlertDialog alertDialog =new AlertDialog.Builder(this).create();
@@ -218,5 +241,7 @@ public class main_page extends AppCompatActivity {
         cancleBT.setTextColor(Color.RED);
         cancleBT.setLayoutParams(negativeBtn);
     }
+
+
 }
 

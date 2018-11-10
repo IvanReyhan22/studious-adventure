@@ -89,7 +89,7 @@ public class register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                onclick();
                 if(username.getText().toString() == null && nickname.getText().toString() == null && InputEmail.getText().toString() == null && mobilenumber.getText().toString() == null && Gender == null){
 
                     Toast.makeText(getApplicationContext(), "There is an Empty Field", Toast.LENGTH_SHORT).show();
@@ -124,8 +124,18 @@ public class register extends AppCompatActivity {
                                     ref.child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).setValue(usr).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            startActivity(new Intent(register.this, main_page.class));
-                                            finish();
+                                            scoreData sd = new scoreData(
+                                                    "0",
+                                                    "0",
+                                                    "0"
+                                            );
+                                            ref.child(auth.getCurrentUser().getUid()).child("Score").setValue(sd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    startActivity(new Intent(register.this, main_page.class));
+                                                    finish();
+                                                }
+                                            });
                                         }
                                     });
                                 }

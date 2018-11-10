@@ -29,23 +29,3 @@ public class refData {
     }
 }
 
-    /*public refData(String title, String url) {
-        this.title = title;
-        this.Url = url;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getUrl() {
-        return Url;
-    }
-
-    public void setUrl(String url) {
-        this.Url = url;
-    }*/

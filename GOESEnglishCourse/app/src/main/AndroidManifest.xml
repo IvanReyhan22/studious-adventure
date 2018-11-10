@@ -3,6 +3,7 @@
     package="com.ezyindustries.goes_englishcourse">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -38,7 +39,12 @@
         <activity android:name=".Score.insertsoal" />
         <activity android:name=".tes_reading" />
         <activity android:name=".VocabularyEx" />
-        <activity android:name=".Vocabulary_fetchUp"></activity>
+        <activity android:name=".Vocabulary_fetchUp" />
+        <activity android:name=".playGround" />
+        <activity android:name=".ResultLearning" />
+        <activity android:name=".toeflFetching" />
+        <activity android:name=".Direction" />
+        <activity android:name=".Toeflpart1"></activity>
     </application>
 
 </manifest>

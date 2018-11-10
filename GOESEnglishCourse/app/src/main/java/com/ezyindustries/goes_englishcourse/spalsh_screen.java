@@ -22,9 +22,6 @@ import java.util.TimerTask;
 
 public class spalsh_screen extends Activity {
 
-    private final int SPLASH_DISPLAY_LENGTH = 4000;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private Integer i;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference ref;
     private FirebaseAuth auth;
@@ -39,35 +36,16 @@ public class spalsh_screen extends Activity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("user");
 
-        FetchConnection();
-
-    }
-    private void FetchConnection(){
         Timer t = new Timer();
-        boolean checkConnection = new ApplicationUtility().checkConnection(this);
+        boolean checkConnection=new ApplicationUtility().checkConnection(this);
         if (checkConnection) {
-            ref.child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot Snap : dataSnapshot.getChildren()){
-                        if(Objects.requireNonNull(Snap.getKey()).equalsIgnoreCase("nickname")){
-                            String temp = Snap.getValue(String.class);
-                        }
-                    }
-                }
+            t.schedule(new splash(), 1000);
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-            t.schedule(new splash(), 3000);
         } else {
-            Toast.makeText(spalsh_screen.this, "No Connection on Internet", Toast.LENGTH_LONG).show();
-
+            Toast.makeText(spalsh_screen.this, "No Connection on Internet", 3000).show();
         }
-    }
 
+    }
 
         class splash extends TimerTask {
 
@@ -80,17 +58,5 @@ public class spalsh_screen extends Activity {
             }
         }
 
-
-
-        /*Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent next = new Intent(spalsh_screen.this, login2_0.class);
-                spalsh_screen.this.startActivity(next);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                spalsh_screen.this.finish();
-            }
-       },SPLASH_DISPLAY_LENGTH);*/
 }
 

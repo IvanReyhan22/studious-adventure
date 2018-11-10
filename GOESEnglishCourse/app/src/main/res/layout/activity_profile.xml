@@ -36,15 +36,6 @@
                     android:textSize="20sp"
                     android:gravity="center_vertical"/>
 
-                <Button
-                    android:id="@+id/signout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/information"
-                    android:text="Sign Out"
-                    android:layout_gravity="center_vertical"
-                    android:backgroundTint="#ff89aa"/>
-
 
             </LinearLayout>
 

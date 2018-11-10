@@ -42,7 +42,6 @@ public class vocabulary10 extends AppCompatActivity {
     private String Correct, questiondata, level;
     private Integer questionnumber = 0;
     private Integer score = 0, qtrue = 0;
-    private Integer limitation = 5;
     private FirebaseAuth Auth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference ref;
@@ -50,8 +49,6 @@ public class vocabulary10 extends AppCompatActivity {
     private Animation scale;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -402,7 +399,8 @@ public class vocabulary10 extends AppCompatActivity {
     private void numbershow (){number.setText(""+questionnumber);}
 
     public void limit(){
-        if (questionnumber == limitation ){
+        Integer limitation = 5;
+        if (questionnumber > limitation){
 
             Bundle extras = new Bundle();
             extras.putInt("SCORE", score);
@@ -416,6 +414,24 @@ public class vocabulary10 extends AppCompatActivity {
 
         }
     }
+
+//    private void CountChild(){
+//        DatabaseReference Dbref = null;
+//        Dbref = FirebaseDatabase.getInstance().getReference("Latihan soal");
+//
+//        Dbref.child(level).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                int size = (int) dataSnapshot.getChildrenCount();
+//                Toast.makeText(getApplicationContext(),"all "+size,Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
     public void updateQuestion() {
 

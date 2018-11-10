@@ -1,0 +1,240 @@
+{
+  "Latihan soal" : {
+    "level1" : [ null, {
+      "AnswerA" : "my",
+      "AnswerB" : "I am",
+      "AnswerC" : "my name",
+      "AnswerD" : "what",
+      "Correct" : "my name",
+      "Explain" : {
+        "Ex_a" : "Its Right",
+        "Ex_b" : "i dont know about this",
+        "Ex_c" : "Me to how about you",
+        "Ex_d" : "yeah dud"
+      },
+      "Question" : "Hello, ... is Nadin",
+      "Status" : "Gold"
+    }, {
+      "AnswerA" : "What",
+      "AnswerB" : "That",
+      "AnswerC" : "This",
+      "AnswerD" : "It",
+      "Correct" : "What",
+      "Question" : "Diana : ... is your name?      Rafi     : My name is Rafi.",
+      "Status" : "Gold"
+    }, {
+      "AnswerA" : "today is sunday",
+      "AnswerB" : "my luck day id sunday",
+      "AnswerC" : "i dont want to talk about it",
+      "AnswerD" : "Terrible",
+      "Correct" : "Terrible",
+      "Question" : "How's your day",
+      "Status" : "Zonk"
+    }, {
+      "AnswerA" : "im sick now",
+      "AnswerB" : "i will go to my parent ",
+      "AnswerC" : "i think i continued to university",
+      "AnswerD" : "i would like to go to germany for vacation",
+      "Correct" : "i think i continued to university",
+      "Question" : "Whats your plan after graduate?",
+      "Status" : "Gold"
+    }, {
+      "AnswerA" : "Im so sorry i have to go to mr Jefferson now",
+      "AnswerB" : "i go to head office ",
+      "AnswerC" : "im so tired",
+      "AnswerD" : "i have to do something",
+      "Correct" : "Im so sorry i have to go to mr Jefferson now",
+      "Question" : "Can you accompany me to the head office please?",
+      "Status" : "Gold"
+    }, {
+      "Status" : "Zonk"
+    }, {
+      "Status" : "Zonk"
+    }, {
+      "Status" : "Zonk"
+    }, {
+      "Status" : "Zonk"
+    } ],
+    "level2" : [ null, {
+      "AnswerA" : "test1",
+      "AnswerB" : "test2",
+      "AnswerC" : "test3",
+      "AnswerD" : "test4",
+      "Correct" : "test1",
+      "Question" : "Level2",
+      "Status" : "Gold"
+    }, {
+      "AnswerA" : "test1",
+      "AnswerB" : "test2",
+      "AnswerC" : "test3",
+      "AnswerD" : "i dont know",
+      "Correct" : "i dont know",
+      "Question" : "What is this?",
+      "Status" : "Gold"
+    }, {
+      "AnswerA" : "test1",
+      "AnswerB" : "i dont know",
+      "AnswerC" : "test3",
+      "AnswerD" : "test4",
+      "Correct" : "i dont know",
+      "Question" : "Please Whats is this?",
+      "Status" : "Zonk"
+    }, {
+      "AnswerA" : "test1",
+      "AnswerB" : "test2",
+      "AnswerC" : "i really dont know",
+      "AnswerD" : "test3",
+      "Correct" : "i really dont know",
+      "Question" : "Tell me what is thi?",
+      "Status" : "Gold"
+    }, {
+      "AnswerA" : "hey!!",
+      "AnswerB" : "test2",
+      "AnswerC" : "test3",
+      "AnswerD" : "test4",
+      "Correct" : "hey!!",
+      "Question" : "Hai",
+      "Status" : "Gold"
+    } ],
+    "level4" : [ null, {
+      "Status" : "Zonk"
+    }, {
+      "Status" : "Zonk"
+    }, {
+      "Status" : "Zonk"
+    }, {
+      "Status" : "Zonk"
+    }, {
+      "Status" : "Zonk"
+    } ]
+  },
+  "Lesson" : {
+    "a" : {
+      "Example" : "Good Morning, my name is ivan",
+      "Title" : "How to Introduce Yourself?...."
+    }
+  },
+  "Tes" : {
+    "Paket1" : [ null, {
+      "AnswerA" : "My Name Is woke",
+      "AnswerB" : "her name is miya",
+      "AnswerC" : "i like her",
+      "AnswerD" : "fine thanks",
+      "Correct" : "My Name Is woke",
+      "Status" : "Zonk",
+      "audioUrl" : "https://firebasestorage.googleapis.com/v0/b/goesapp-1159e.appspot.com/o/listeningTest%2Ftranslate_tts.mp3?alt=media&token=e9ef5ac6-039e-4f60-af95-a269336f9801"
+    }, {
+      "AnswerA" : "im old",
+      "AnswerB" : "im so young",
+      "AnswerC" : "Im 20 ",
+      "AnswerD" : "i forget",
+      "Correct" : "Im 20",
+      "Status" : "Zonk",
+      "audioUrl" : "https://firebasestorage.googleapis.com/v0/b/goesapp-1159e.appspot.com/o/listeningTest%2Ftranslate_tts%20(1).mp3?alt=media&token=4b71a29c-a371-4908-a88f-d2461f01c2bf"
+    }, {
+      "AnswerA" : "Im Fishing, do you want to join me?",
+      "AnswerB" : "i dont know",
+      "AnswerC" : "im hungry",
+      "AnswerD" : "what are you doing?",
+      "Correct" : "Im Fishing, do you want to join me?",
+      "Status" : "Zonk",
+      "audioUrl" : "https://firebasestorage.googleapis.com/v0/b/goesapp-1159e.appspot.com/o/listeningTest%2Ftranslate_tts%20(2).mp3?alt=media&token=f947391f-2ed1-4bc5-b5bb-124995863c77"
+    }, {
+      "AnswerA" : "im live in malang",
+      "AnswerB" : "ok",
+      "AnswerC" : "Im just arrived",
+      "AnswerD" : "im dont want to life",
+      "Correct" : "im live in malang",
+      "Question" : "Where do you live"
+    } ]
+  },
+  "Video" : [ null, {
+    "title" : "Conversation English",
+    "url" : "https://firebasestorage.googleapis.com/v0/b/goesapp-1159e.appspot.com/o/Video%2FConversation.jpg?alt=media&token=4e29fa28-57f3-4502-9158-1565e0854a4a",
+    "videoUrl" : "T8_uA66-ykk"
+  }, null, {
+    "title" : "askdbaw",
+    "url" : "https://firebasestorage.googleapis.com/v0/b/goesapp-1159e.appspot.com/o/Video%2FConversation.jpg?alt=media&token=4e29fa28-57f3-4502-9158-1565e0854a4a",
+    "videoUrl" : "T8_uA66-ykk"
+  } ],
+  "user" : {
+    "2KSfMAyFf0h99o17o8VOPfH6hil1" : {
+      "Score" : {
+        "point" : "5",
+        "toeflScore" : "600",
+        "vocabularyScore" : "0"
+      },
+      "deskripsion" : "No Detail about me yet.....",
+      "email" : "woke@gmail.com",
+      "gender" : "Men",
+      "latihan" : "level1",
+      "lesson" : "PartA",
+      "nickname" : "Woke01",
+      "phone" : "0888888888",
+      "tes" : "Paket1",
+      "username" : "woke",
+      "website" : "......"
+    },
+    "98dkgsCSenejUDOhHSs8a5N0kWf1" : {
+      "deskripsion" : "hey ho",
+      "email" : "alifanantomi2@gmail.com",
+      "gender" : "Men",
+      "latihan" : "level1",
+      "lesson" : "PartA",
+      "nickname" : "alif",
+      "phone" : "081",
+      "tes" : "Paket1",
+      "username" : "alif",
+      "website" : "......"
+    },
+    "Bft4wd3TYtaYa11TylA3X0ET4VA3" : {
+      "Score" : {
+        "vocabularyScore" : "30"
+      },
+      "deskripsion" : "No Detail about me yet.....",
+      "email" : "antyassari@gmail.com",
+      "gender" : "Woman",
+      "latihan" : "level1",
+      "lesson" : "PartA",
+      "nickname" : "Tyas",
+      "phone" : "08111",
+      "tes" : "Paket1",
+      "username" : "Tyas",
+      "website" : "......"
+    },
+    "oGyAZkApGqTAnXQZVXjn47FFy0K2" : {
+      "Score" : {
+        "point" : "0",
+        "toeflScore" : "0",
+        "vocabularyScore" : "0"
+      },
+      "deskripsion" : "No Detail about me yet.....",
+      "email" : "atyassari@gmail.com",
+      "gender" : "Woman",
+      "latihan" : "level1",
+      "lesson" : "PartA",
+      "nickname" : "Tyas",
+      "phone" : "08122222222",
+      "tes" : "Paket1",
+      "username" : "Tyas",
+      "website" : "......"
+    },
+    "rnq44nAAaZdprwA76dD1Aj9ZSa22" : {
+      "Score" : {
+        "point" : "0",
+        "toeflScore" : "0",
+        "vocabularyScore" : "0"
+      },
+      "deskripsion" : "No Detail about me yet.....",
+      "email" : "rizqisatriaw191@gmail.com",
+      "gender" : "Men",
+      "latihan" : "level1",
+      "lesson" : "PartA",
+      "nickname" : "rizqi",
+      "phone" : "082236118471",
+      "tes" : "Paket1",
+      "username" : "rizqi",
+      "website" : "......"
+    }
+  }
+}

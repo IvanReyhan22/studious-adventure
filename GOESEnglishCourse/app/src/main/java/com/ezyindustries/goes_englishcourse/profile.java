@@ -32,7 +32,6 @@ public class profile extends AppCompatActivity {
 
     private ImageButton back;
     private FirebaseAuth auth;
-    private Button signout;
     private FirebaseAuth Auth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference ref;
@@ -53,19 +52,11 @@ public class profile extends AppCompatActivity {
         nickname = (TextView) findViewById(R.id.nickname);
         levelScore = (TextView) findViewById(R.id.level);
         back = (ImageButton) findViewById(R.id.back);
-        signout = (Button) findViewById(R.id.signout);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("user");
-
-        signout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Dialog();
-            }
-        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,60 +76,6 @@ public class profile extends AppCompatActivity {
         nickname.setText("hey");
         getData();
         getDataScore();
-    }
-
-    protected void signout() {
-        auth.signOut();
-    }
-
-    public void Dialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-
-        TextView title = new TextView(this);
-
-        title.setText("Log Out");
-        title.setPadding(10, 30, 10, 20);
-        title.setGravity(Gravity.CENTER);
-        title.setTextColor(Color.BLACK);
-        title.setTextSize(20);
-        alertDialog.setCustomTitle(title);
-
-        TextView info = new TextView(this);
-        info.setText("Are you Sure want to Log out? ");
-        info.setGravity(Gravity.CENTER_HORIZONTAL);
-        info.setTextColor(Color.BLACK);
-        alertDialog.setView(info);
-
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                auth.signOut();
-                startActivity(new Intent(profile.this, login2_0.class));
-            }
-        });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
-        new Dialog(getApplicationContext());
-        alertDialog.show();
-
-        final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        LinearLayout.LayoutParams neuturalBtn = (LinearLayout.LayoutParams) okBT.getLayoutParams();
-        neuturalBtn.gravity = Gravity.RIGHT;
-        okBT.setPadding(50, 10, 10, 10);
-        okBT.setTextColor(Color.BLACK);
-        okBT.setLayoutParams(neuturalBtn);
-
-        final Button cancleBT = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        LinearLayout.LayoutParams negativeBtn = (LinearLayout.LayoutParams) cancleBT.getLayoutParams();
-        negativeBtn.gravity = Gravity.RIGHT;
-        cancleBT.setPadding(50, 10, 10, 10);
-        cancleBT.setTextColor(Color.RED);
-        cancleBT.setLayoutParams(negativeBtn);
     }
 
     private void getData() {
@@ -179,6 +116,8 @@ public class profile extends AppCompatActivity {
                     String Ttotal = String.valueOf(total);
                     Total.setText(Ttotal);
 
+                    String key = ref.push().getKey();
+
                 }
 
             }
@@ -189,20 +128,6 @@ public class profile extends AppCompatActivity {
                 Toast.makeText(profile.this, "Failed Retrieve data please restart!." + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
             }
         });
-//        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("Score").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-//                    scoreData sd = dataSnapshot.getValue(scoreData.class);
-//                    levelScore.setText(Objects.requireNonNull(sd).getVocabularyScore());
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
     }
 }
 

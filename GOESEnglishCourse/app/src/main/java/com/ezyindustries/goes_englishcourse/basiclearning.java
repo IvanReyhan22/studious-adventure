@@ -23,8 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 public class basiclearning extends AppCompatActivity {
 
     private Button next;
-    private TextView Stitle,example;
+    private TextView Stitle,example, paragraf1, paragraf2, paragraf3;
     String Dtitle;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference ref;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -35,11 +37,17 @@ public class basiclearning extends AppCompatActivity {
         next= (Button) findViewById(R.id.continued);
         Stitle = (TextView) findViewById(R.id.title);
         example = (TextView) findViewById(R.id.example);
+        paragraf1 = (TextView) findViewById(R.id.paragraf1);
+        paragraf2 = (TextView) findViewById(R.id.paragraf2);
+        paragraf3 = (TextView) findViewById(R.id.paragraf3);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        ref = firebaseDatabase.getReference("Lesson");
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(basiclearning.this, resultlayout.class);
+                Intent intent = new Intent(basiclearning.this, main_page.class);
                 startActivity(intent);
             }
         });
@@ -77,6 +85,27 @@ public class basiclearning extends AppCompatActivity {
 
             }
         });
+
+        ref.child("a").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    String par1 = dataSnapshot.child("par1").getValue(String.class);
+                    String par2 = dataSnapshot.child("par2").getValue(String.class);
+                    String par3 = dataSnapshot.child("par3").getValue(String.class);
+                    paragraf1.setText(par1);
+                    paragraf2.setText(par2);
+                    paragraf3.setText(par3);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     public void Dialog() {

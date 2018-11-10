@@ -27,28 +27,20 @@ public class Vocabulary_fetchUp extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("Latihan Soal");
-        FecthData();
+        FetchData();
     }
 
-    private void FecthData(){
+    private void FetchData(){
 
         ref.child("level1").child("1").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot Snapshot: dataSnapshot.getChildren()){
-                    if(Objects.requireNonNull(Snapshot.getKey()).equalsIgnoreCase("Question")){
-                        String temp = dataSnapshot.getValue(String.class);
-                    }else if (Snapshot.getKey().equalsIgnoreCase("Answer_A")){
-                        String temp = dataSnapshot.getValue(String.class);
-                    }else if(Snapshot.getKey().equalsIgnoreCase("Answer_B")){
-                        String temp = dataSnapshot.getValue(String.class);
-                    }else if(Snapshot.getKey().equalsIgnoreCase("Answer_C")){
-                        String temp = dataSnapshot.getValue(String.class);
-                    }else if(Snapshot.getKey().equalsIgnoreCase("Answer_D")){
+                    if(Objects.requireNonNull(Snapshot.getKey()).equalsIgnoreCase("audioUrl")){
                         String temp = dataSnapshot.getValue(String.class);
                     }
                 }
-                startActivity(new Intent(Vocabulary_fetchUp.this, vocabulary10.class));
+                startActivity(new Intent(Vocabulary_fetchUp.this, vocabulary10  .class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 finish();
             }

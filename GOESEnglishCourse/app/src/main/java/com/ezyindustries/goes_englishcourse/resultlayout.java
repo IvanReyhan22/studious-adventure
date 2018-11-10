@@ -95,7 +95,6 @@ public class resultlayout extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 updatelevel();
             }
         });
@@ -298,7 +297,6 @@ public class resultlayout extends AppCompatActivity {
         if(total  <= 20) {
             Dialog();
         }else {
-
             ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -352,6 +350,8 @@ public class resultlayout extends AppCompatActivity {
                     }
                     dataSnapshot.getRef().child("latihan").setValue(latihanU);
                     ur.reload();
+                    startActivity(new Intent(resultlayout.this, main_page.class));
+                    finish();
                 }
 
                 @Override
@@ -363,18 +363,28 @@ public class resultlayout extends AppCompatActivity {
     }
 
     private  void updateScore(){
-        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("Score").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.getRef().child("vocabularyScore").setValue(Tscore.getText().toString());
-                ur.reload();
-            }
+        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("Score").child("vocabularyScore").setValue(Tscore.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+//                        Toast.makeText(getApplicationContext(),"All OK",Toast.LENGTH_SHORT ).show();
+                    }
+                });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+
+//        ref.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("Score").child("vocabularyScore").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                dataSnapshot.getRef().child("vocabularyScore").setValue(Tscore.getText().toString());
+//                ur.reload();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
     public void Dialog() {

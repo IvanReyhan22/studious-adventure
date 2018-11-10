@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".toefl">
+    tools:context=".Toeflpart1">
 
     <Toolbar
         android:layout_width="match_parent"
@@ -13,24 +13,44 @@
         android:background="#3546b6"
         android:elevation="5dp">
 
-        <TextView
-            android:id="@+id/judul"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="15dp"
-            android:text="TOEFL is in Progress"
-            android:textSize="20sp"
-            android:textColor="#fff"
-            android:gravity="center_vertical"
-            android:textAlignment="center"/>
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Question Number "
+                android:textColor="#f6f6f6"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+
+            <TextView
+                android:id="@+id/idnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginLeft="5dp"
+                android:text=" 0"
+                android:textColor="#f6f6f6"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
     </Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
@@ -49,61 +69,24 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:gravity="center">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="Question Number "
-                            android:textColor="#289fef"
-                            android:textStyle="bold"
-                            android:textSize="20sp"/>
-
-
-                        <TextView
-                            android:id="@+id/idnumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:layout_marginLeft="5dp"
-                            android:text=" 0"
-                            android:textColor="#289fef"
-                            android:textStyle="bold"
-                            android:textSize="20sp"/>
-
-                    </LinearLayout>
-                    
                     <RelativeLayout
-                        android:layout_width="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/unlocked"
-                            android:layout_width="wrap_content"
-                            android:layout_height="70dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="40dp"
-                            android:src="@drawable/speaker"/>
-
-                        <ImageView
-                            android:id="@+id/locked"
-                            android:layout_width="wrap_content"
-                            android:layout_height="70dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="40dp"
-                            android:alpha="0"
-                            android:src="@drawable/speaker_locked"/>
+                            android:id="@+id/pic"
+                            android:layout_width="250dp"
+                            android:layout_height="200dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/loading"/>
 
                     </RelativeLayout>
 
                 </LinearLayout>
-
 
             </android.support.v7.widget.CardView>
 
@@ -137,7 +120,7 @@
                         android:id="@+id/a"
                         android:layout_width="200dp"
                         android:layout_height="match_parent"
-                        android:text="All"
+                        android:text="A"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center_vertical"
@@ -177,7 +160,7 @@
                         android:id="@+id/b"
                         android:layout_width="200dp"
                         android:layout_height="match_parent"
-                        android:text="Rare"
+                        android:text="B"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center_vertical"
@@ -217,7 +200,7 @@
                         android:id="@+id/c"
                         android:layout_width="200dp"
                         android:layout_height="match_parent"
-                        android:text="No"
+                        android:text="C"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center_vertical"
@@ -257,7 +240,7 @@
                         android:id="@+id/d"
                         android:layout_width="200dp"
                         android:layout_height="match_parent"
-                        android:text="Some"
+                        android:text="D"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center_vertical"
@@ -269,6 +252,7 @@
             </android.support.v7.widget.CardView>
 
         </LinearLayout>
+
 
     </ScrollView>
 
