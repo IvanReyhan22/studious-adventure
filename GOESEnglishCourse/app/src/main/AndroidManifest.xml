@@ -3,11 +3,11 @@
     package="com.ezyindustries.goes_englishcourse">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/iconapps"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -44,7 +44,12 @@
         <activity android:name=".ResultLearning" />
         <activity android:name=".toeflFetching" />
         <activity android:name=".Direction" />
-        <activity android:name=".Toeflpart1"></activity>
+        <activity android:name=".Toeflpart1" />
+        <activity android:name=".friendprofile" />
+        <activity android:name=".Toeflpart2" />
+        <activity android:name=".Toeflpart3" />
+        <activity android:name=".Toeflpart4" />
+        <activity android:name=".toeflResult"></activity>
     </application>
 
 </manifest>

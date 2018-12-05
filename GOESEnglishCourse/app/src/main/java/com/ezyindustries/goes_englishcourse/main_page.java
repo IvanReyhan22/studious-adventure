@@ -42,7 +42,7 @@ public class main_page extends AppCompatActivity {
     private CardView video;
 //    private ImageView rating;
     private CardView test;
-    private TextView Name;
+    private TextView Name, navUser;
     private DrawerLayout drawerLayout;
     private NavigationView nv;
     private ActionBarDrawerToggle t;
@@ -154,6 +154,9 @@ public class main_page extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String nama= dataSnapshot.getValue(String.class);
                 Name.setText(nama);
+                View headerView = nv.getHeaderView(0);
+                TextView user = (TextView) headerView.findViewById(R.id.User);
+                user.setText(nama);
             }
 
             @Override

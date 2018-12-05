@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="maintheme">#735982</color>
+    <color name="white">#fff</color>
     <color name="i_made_right_choice">#4daf7c</color>
     <color name="item_background">#ffffcc</color>
 </resources>

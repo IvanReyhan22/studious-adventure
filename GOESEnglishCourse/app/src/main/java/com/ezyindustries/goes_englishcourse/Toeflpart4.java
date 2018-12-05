@@ -1,13 +1,11 @@
-    package com.ezyindustries.goes_englishcourse;
+package com.ezyindustries.goes_englishcourse;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,58 +30,69 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.Objects;
 
-public class Toeflpart1 extends AppCompatActivity {
+public class Toeflpart4 extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth Auth;
-    private DatabaseReference ref;
-    private DatabaseReference refU;
-    private ImageView pic;
-    private CardView true1, true2, true3, true4;
-    private TextView a,b,c,d, number,time;
-    private Boolean audio = false;
-    private String correct, level ,PAKET, point, isPoint;
+    private DatabaseReference ref,refU;
+
+    private TextView a,b,c,d,a2,b2,c2,d2;
+    private TextView number1, number2, numberA1, numberA2 ,time;
+
+    private ImageView image1, image2;
+
+    private String ca,cb,cc,cd,ca2,cb2,cc2,cd2, imageref, imageref2; //answer data & image data
+
     private String par1,par2,par3;
-    private Integer  questionNumber = 0, limit=21 /*21*/, Point = 0, pointIn = 0, truepoint = 10;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private String correct, getLevel  ,PAKET, point, isPoint;
+
+    private ProgressBar load1, load2;
+
+    private Integer  questionNumber = 71, questionnumber2, limit=73, Point = 0, pointIn = 0, truepoint = 10;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toeflpart1);
+        setContentView(R.layout.activity_toeflpart4);
 
         Auth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("Tes");
         refU = firebaseDatabase.getReference("user");
 
-        pic = (ImageView)findViewById(R.id.pic);
-        true1 = (CardView)findViewById(R.id.true1);
-        true2 = (CardView)findViewById(R.id.true2);
-        true3 = (CardView)findViewById(R.id.true3);
-        true4 = (CardView)findViewById(R.id.true4);
         time = (TextView)findViewById(R.id.time);
+        number1 = (TextView) findViewById(R.id.number1);
+        number2 = (TextView) findViewById(R.id.number2);
+        numberA1 = (TextView) findViewById(R.id.numberA1);
+        numberA2 = (TextView) findViewById(R.id.numberA2);
 
         a= (TextView) findViewById(R.id.a);
         b= (TextView) findViewById(R.id.b);
         c= (TextView) findViewById(R.id.c);
         d= (TextView) findViewById(R.id.d);
+        a2 = (TextView) findViewById(R.id.a2);
+        b2 = (TextView) findViewById(R.id.b2);
+        c2 = (TextView) findViewById(R.id.c2);
+        d2 = (TextView) findViewById(R.id.d2);
 
-        number = (TextView)findViewById(R.id.idnumber);
+        image1 = (ImageView) findViewById(R.id.Image1);
+        image2 = (ImageView) findViewById(R.id.Image2);
 
+
+        load1 = (ProgressBar) findViewById(R.id.load1);
+        load2 = (ProgressBar) findViewById(R.id.load2);
         Start();
 
     }
 
     private void CountdownTimer(){
-        new CountDownTimer(5000, 1000) {
-
+        new CountDownTimer(15000, 1000) {
             public void onTick(long millisUntilFinished) {
                 time.setText("Time: " + millisUntilFinished / 1000);
-                ref.child(level+"/"+questionNumber+"/Correct").addValueEventListener(new ValueEventListener() {
+                ref.child(getLevel+"/"+questionNumber+"/Correct").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         correct = dataSnapshot.getValue(String.class);
@@ -122,6 +132,43 @@ public class Toeflpart1 extends AppCompatActivity {
                                 }
                             }
                         });
+
+                        a2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(a.getText().equals(correct)){
+                                    getScorepoint();
+                                }
+                            }
+                        });
+
+                        b2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(b.getText().equals(correct)){
+                                    getScorepoint();
+                                }
+                            }
+                        });
+
+                        c2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(c.getText().equals(correct)){
+                                    getScorepoint();
+                                }
+                            }
+                        });
+
+                        d2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(d.getText().equals(correct)){
+                                    getScorepoint();
+                                }
+                            }
+                        });
+
                     }
 
                     @Override
@@ -139,52 +186,97 @@ public class Toeflpart1 extends AppCompatActivity {
     }
 
     public void Start(){
-        questionNumber++;
-        if(questionNumber >= limit){
-            Limit();
-        }else{
-            numbershow();
-            refU.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("tes").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    level = dataSnapshot.getValue(String.class);
-                    Limit();
-                    PicRoll();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
+        getLevel();
 
     }
 
-    private void PicRoll(){
-        final ProgressDialog dialog = new ProgressDialog(Toeflpart1.this);
-        dialog.setMessage("Loading...");
-        dialog.show();
-
-        ref.child(level+"/"+questionNumber+"/Picture").addValueEventListener(new ValueEventListener() {
+    private void getQuestion1(){
+        numbershow1();
+        ref.child(getLevel+"/"+questionNumber).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String picUrl = dataSnapshot.getValue(String.class);
-                if(picUrl != null){
-                    Picasso.get().load(picUrl).into(pic, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            dialog.hide();
-                            Soundplay();
-                        }
+                ca = dataSnapshot.child("answerA").getValue(String.class);
+                cb = dataSnapshot.child("answerB").getValue(String.class);
+                cc = dataSnapshot.child("answerC").getValue(String.class);
+                cd = dataSnapshot.child("answerD").getValue(String.class);
+                a.setText(ca);
+                b.setText(cb);
+                c.setText(cc);
+                d.setText(cd);
+                imageref = dataSnapshot.child("image1").getValue(String.class);
+                Toast.makeText(getApplicationContext(), ""+getLevel+"/"+questionNumber, Toast.LENGTH_SHORT).show();
+                Picasso.get().load(imageref).into(image1, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        load1.setVisibility(View.GONE);
+                    }
 
-                        @Override
-                        public void onError(Exception e) {
-                            Dialog();
-                        }
-                    });
-                }else {
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getQuestion2(){
+        questionnumber2 = questionNumber + 1;
+        numbershow2();
+        ref.child(getLevel+"/"+questionnumber2).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ca2 = dataSnapshot.child("answerA").getValue(String.class);
+                cb2 = dataSnapshot.child("answerB").getValue(String.class);
+                cc2 = dataSnapshot.child("answerC").getValue(String.class);
+                cd2 = dataSnapshot.child("answerD").getValue(String.class);
+                a2.setText(ca2);
+                b2.setText(cb2);
+                c2.setText(cc2);
+                d2.setText(cd2);
+                imageref2 = dataSnapshot.child("image1").getValue(String.class);
+                Toast.makeText(getApplicationContext(), ""+getLevel+"/"+questionnumber2, Toast.LENGTH_SHORT).show();
+                Picasso.get().load(imageref2).into(image2, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        load2.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getLevel(){
+        refU.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("tes").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                getLevel = dataSnapshot.getValue(String.class);
+
+                questionNumber++;
+                if(questionNumber.equals(limit)){
                     Limit();
+                }else{
+                    getQuestion1();
+                    getQuestion2();
+                    CountdownTimer();
+                    questionNumber = questionnumber2;
                 }
 
             }
@@ -196,80 +288,13 @@ public class Toeflpart1 extends AppCompatActivity {
         });
     }
 
-    private void Soundplay(){
-        ref.child(level+"/"+questionNumber+"/audioUrl").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String AudioUrl = dataSnapshot.getValue(String.class);
-                try{
-                    MediaPlayer mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setDataSource(""+AudioUrl+"");
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mediaPlayer.start();
-                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                public void onCompletion(MediaPlayer mp) {
-//                                            audio = true;
-                                    CountdownTimer();
-
-                                }
-                            });
-                        }
-                    });
-                    mediaPlayer.prepare();
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void Limit(){
-        mediaPlayer.stop();
         if(questionNumber >= limit){
-            String Direct ="Direction2";
-            ref.child("Direction").child(Direct).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    par1 = dataSnapshot.child("Par1").getValue(String.class);
-                    par2 = dataSnapshot.child("Par2").getValue(String.class);
-                    par3 = dataSnapshot.child("Par3").getValue(String.class);
-
-                    if(par1 != null){
-                        if(par2 != null){
-                            if(par3!= null){
-                                Bundle extras = new Bundle();
-                                extras.putString("1",par1);
-                                extras.putString("2",par2);
-                                extras.putString("3",par3);
-                                extras.putString("NextDirec","Direction2");
-                                Intent intent = new Intent(Toeflpart1.this, Direction.class);
-                                intent.putExtras(extras);
-                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                startActivity(intent);
-                                finish();
-                            }else {
-                                Dialog3();
-                            }
-                        }else {
-                            Dialog3();
-                        }
-                    }else{
-                        Dialog3();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+            Intent intent = new Intent(Toeflpart4.this, toeflResult.class);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            startActivity(intent);
+            finish();
         }else{
 
         }
@@ -304,7 +329,14 @@ public class Toeflpart1 extends AppCompatActivity {
         });
     }
 
-    private void numbershow (){number.setText(""+questionNumber);}
+    private void numbershow1(){
+        number1.setText(""+questionNumber);
+        numberA1.setText(""+questionNumber);
+    }
+    private void numbershow2(){
+        number2.setText(""+questionnumber2);
+        numberA2.setText(""+questionnumber2);
+    }
 
     public void Dialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -328,7 +360,7 @@ public class Toeflpart1 extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(Toeflpart1.this, main_page.class));
+                startActivity(new Intent(Toeflpart4.this, main_page.class));
                 finish();
             }
         });
@@ -348,7 +380,6 @@ public class Toeflpart1 extends AppCompatActivity {
     }
 
     public void Dialog2() {
-        mediaPlayer.pause();
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         TextView title = new TextView(this);
@@ -370,14 +401,14 @@ public class Toeflpart1 extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(Toeflpart1.this, main_page.class));
+                startActivity(new Intent(Toeflpart4.this, main_page.class));
                 finish();
             }
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mediaPlayer.start();
+
             }
         });
 
@@ -400,7 +431,6 @@ public class Toeflpart1 extends AppCompatActivity {
     }
 
     public void Dialog3() {
-        mediaPlayer.pause();
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         TextView title = new TextView(this);
@@ -422,7 +452,7 @@ public class Toeflpart1 extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(Toeflpart1.this, main_page.class));
+                startActivity(new Intent(Toeflpart4.this, main_page.class));
                 finish();
             }
         });

@@ -14,6 +14,7 @@ import android.graphics.Rect;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -22,15 +23,20 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,13 +45,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class edit_form extends AppCompatActivity {
 
@@ -57,9 +70,12 @@ public class edit_form extends AppCompatActivity {
     private FirebaseAuth Auth;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseStorage firebaseStorage;
-    StorageReference Sref;
+    private StorageReference Sref;
     private DatabaseReference databaseReference;
-    private String lesson, tes, latihan, Gender;
+    private String lesson, tes, latihan, Gender, ImageUrl,isImage;
+    private Uri imageUri, DownloadUrl;
+    private ProgressBar loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +90,13 @@ public class edit_form extends AppCompatActivity {
         mobilephone = (EditText) findViewById(R.id.number);
         email = (EditText) findViewById(R.id.email);
         website = (EditText) findViewById(R.id.website);
+        loading = (ProgressBar)findViewById(R.id.loading);
 
         Auth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("user");
+        firebaseStorage = FirebaseStorage.getInstance();
+        Sref = firebaseStorage.getReference("UserPhoto").child(Objects.requireNonNull(Auth.getCurrentUser()).getUid());
 
         getData();
 
@@ -96,12 +115,12 @@ public class edit_form extends AppCompatActivity {
                 if(nickname.length() >= 7){
                     Toast.makeText(getApplicationContext(), "Nickname must be Less than 7 characters",Toast.LENGTH_LONG).show();
                 }else{
+                    UploadImage();
                     update();
                 }
 
             }
         });
-
 
     }
 
@@ -109,13 +128,11 @@ public class edit_form extends AppCompatActivity {
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
 
-
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && data.getData() != null) {
             try {
-                final Uri imageUri = data.getData();
+                imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                getCroppedBitmap(selectedImage);
                 camera.setImageBitmap(selectedImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -127,27 +144,60 @@ public class edit_form extends AppCompatActivity {
         }
     }
 
-    public Bitmap getCroppedBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
+    private void UploadImage(){
+        if(imageUri != null)
+        {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
 
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            Sref.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    progressDialog.hide();
 
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
-                bitmap.getWidth() / 2, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
-        //return _bmp;
-        return output;
+                    Sref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            ImageUrl = uri.toString();
+                            Toast.makeText(getApplicationContext(),""+ImageUrl, Toast.LENGTH_LONG).show();
+                            databaseReference.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("picUrl").setValue(ImageUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(edit_form.this, "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(),"Failed get Download url", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.hide();
+                    Toast.makeText(edit_form.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                            .getTotalByteCount());
+                    progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                }
+            });
+
+        }
     }
+
 
     private void getData(){
         databaseReference.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
@@ -165,6 +215,21 @@ public class edit_form extends AppCompatActivity {
                     tes = user.getTes();
                     Gender = user.getGender();
                     latihan = user.getLatihan();
+                    isImage = user.getPicUrl();
+                    if(!isImage.equals("")){
+                        ImageUrl = isImage;
+                        Picasso.get().load(isImage).into(camera, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                loading.setVisibility(View.GONE);
+                            }
+                            @Override
+                            public void onError(Exception e) {
+                                Log.e("Image", e.getMessage());}
+                        });
+                    }else{
+                        loading.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -178,100 +243,30 @@ public class edit_form extends AppCompatActivity {
     }
 
     private void update(){
+        if (ImageUrl == null){
+            ImageUrl = "";
+        }
         final ProgressDialog dialog = new ProgressDialog(edit_form.this);
         dialog.setMessage("Hold on we loading up data for you....");
         dialog.show();
-        ValueEventListener valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User usr = new User(
-                        name.getText().toString(),
-                        nickname.getText().toString(),
-                        email.getText().toString(),
-                        mobilephone.getText().toString(),
-                        lesson,
-                        tes,
-                        latihan,
-                        Gender,
-                        descirption.getText().toString(),
-                        website.getText().toString()
 
-                );
-                dialog.hide();
-                databaseReference.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).setValue(usr).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "Update Succes",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), profile.class));
-                        }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user").child(Objects.requireNonNull(Auth.getCurrentUser()).getUid());
+        Map<String, Object> updates = new HashMap<String,Object>();
+        updates.put("deskripsion",descirption.getText().toString());
+        updates.put("email",email.getText().toString());
+        updates.put("gender",Gender);
+        updates.put("latihan",latihan);
+        updates.put("lesson",lesson);
+        updates.put("nickname",nickname.getText().toString());
+        updates.put("phone",mobilephone.getText().toString());
+        updates.put("picUrl",ImageUrl);
+        updates.put("tes",tes);
+        updates.put("username",name.getText().toString());
+        updates.put("website",website.getText().toString());
 
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(edit_form.this, "Insert Data Failed", Toast.LENGTH_LONG).show();
-            }
-        });
+        ref.updateChildren(updates);
 
     }
 }
 
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == GALLERY_ACTIVITY_CODE) {
-//            if(resultCode == Activity.RESULT_OK){
-//                picturePath = data.getStringExtra("picturePath");
-//                performCrop(picturePath);
-//            }
-//        }
-//
-//        if (requestCode == RESULT_CROP ) {
-//            if(resultCode == Activity.RESULT_OK){
-//                Bundle extras = data.getExtras();
-//                Bitmap selectedBitmap = extras.getParcelable("data");
-//                // Set The Bitmap Data To ImageView
-//                image_capture1.setImageBitmap(selectedBitmap);
-//                image_capture1.setScaleType(ImageView.ScaleType.FIT_XY);
-//            }
-//        }
-//    }
-//
-//    private void performCrop(String picUri) {
-//        try {
-//            //Start Crop Activity
-//
-//            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-//            // indicate image type and Uri
-//            File f = new File(picUri);
-//            Uri contentUri = Uri.fromFile(f);
-//
-//            cropIntent.setDataAndType(contentUri, "image/*");
-//            // set crop properties
-//            cropIntent.putExtra("crop", "true");
-//            // indicate aspect of desired crop
-//            cropIntent.putExtra("aspectX", 1);
-//            cropIntent.putExtra("aspectY", 1);
-//            // indicate output X and Y
-//            cropIntent.putExtra("outputX", 280);
-//            cropIntent.putExtra("outputY", 280);
-//
-//            // retrieve data on return
-//            cropIntent.putExtra("return-data", true);
-//            // start the activity - we handle returning in onActivityResult
-//            startActivityForResult(cropIntent, RESULT_CROP);
-//        }
-//        // respond to users whose devices do not support the crop action
-//        catch (ActivityNotFoundException anfe) {
-//            // display an error message
-//            String errorMessage = "your device doesn't support the crop action!";
-//            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
-//            toast.show();
-//        }
-//    }
-//}

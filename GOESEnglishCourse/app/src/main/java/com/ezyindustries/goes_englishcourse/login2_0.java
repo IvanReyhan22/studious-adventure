@@ -46,9 +46,6 @@ public class login2_0 extends AppCompatActivity {
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(login2_0.this, main_page.class));
             finish();
-        }else{
-
-            Toast.makeText(getApplicationContext(), "No UID is Accesable", Toast.LENGTH_SHORT).show();
         }
 
         forgot.setOnClickListener(new View.OnClickListener() {

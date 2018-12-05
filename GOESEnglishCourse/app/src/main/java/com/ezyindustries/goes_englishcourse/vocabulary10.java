@@ -93,6 +93,9 @@ public class vocabulary10 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Answer_A.getText().equals(Correct)) {
+                    Answer_B.setEnabled(false);
+                    Answer_C.setEnabled(false);
+                    Answer_D.setEnabled(false);
                     a.startAnimation(scale);
                     backgroundChangeATrue();
                     score = score + 10;
@@ -116,6 +119,9 @@ public class vocabulary10 extends AppCompatActivity {
 
                 } else {
                     a.startAnimation(Shake);
+                    Answer_B.setEnabled(false);
+                    Answer_C.setEnabled(false);
+                    Answer_D.setEnabled(false);
                     backgroundChangeA();
                     updatestatusfalse();
                     Handler handler = new Handler();
@@ -141,6 +147,9 @@ public class vocabulary10 extends AppCompatActivity {
             public void onClick(View view) {
                 if (Answer_B.getText().equals(Correct)) {
                     b.startAnimation(scale);
+                    Answer_A.setEnabled(false);
+                    Answer_C.setEnabled(false);
+                    Answer_D.setEnabled(false);
                     backgroundChangeBTrue();
                     score = score + 10;
                     scoreupdete(score);
@@ -163,6 +172,9 @@ public class vocabulary10 extends AppCompatActivity {
 
                 } else {
                     b.startAnimation(Shake);
+                    Answer_A.setEnabled(false);
+                    Answer_C.setEnabled(false);
+                    Answer_D.setEnabled(false);
                     backgroundChangeB();
                     updatestatusfalse();
                     Handler handler = new Handler();
@@ -188,6 +200,9 @@ public class vocabulary10 extends AppCompatActivity {
             public void onClick(View view) {
                 if (Answer_C.getText().equals(Correct)) {
                     c.startAnimation(scale);
+                    Answer_A.setEnabled(false);
+                    Answer_B.setEnabled(false);
+                    Answer_D.setEnabled(false);
                     backgroundChangeCTrue();
                     score = score + 10;
                     scoreupdete(score);
@@ -209,6 +224,9 @@ public class vocabulary10 extends AppCompatActivity {
                     },1000);
                 } else {
                     c.startAnimation(Shake);
+                    Answer_A.setEnabled(false);
+                    Answer_B.setEnabled(false);
+                    Answer_D.setEnabled(false);
                     backgroundChangeC();
                     updatestatusfalse();
                     Handler handler = new Handler();
@@ -235,6 +253,9 @@ public class vocabulary10 extends AppCompatActivity {
             public void onClick(View view) {
                 if (Answer_D.getText().equals(Correct)) {
                     d.startAnimation(scale);
+                    Answer_A.setEnabled(false);
+                    Answer_B.setEnabled(false);
+                    Answer_C.setEnabled(false);
                     backgroundChangeDTrue();
                     score = score + 10;
                     scoreupdete(score);
@@ -251,6 +272,9 @@ public class vocabulary10 extends AppCompatActivity {
                     limit();
                 } else {
                     d.startAnimation(Shake);
+                    Answer_A.setEnabled(false);
+                    Answer_B.setEnabled(false);
+                    Answer_C.setEnabled(false);
                     backgroundChangeD();
                     updatestatusfalse();
                     Handler handler = new Handler();
@@ -415,25 +439,11 @@ public class vocabulary10 extends AppCompatActivity {
         }
     }
 
-//    private void CountChild(){
-//        DatabaseReference Dbref = null;
-//        Dbref = FirebaseDatabase.getInstance().getReference("Latihan soal");
-//
-//        Dbref.child(level).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                int size = (int) dataSnapshot.getChildrenCount();
-//                Toast.makeText(getApplicationContext(),"all "+size,Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-
     public void updateQuestion() {
+        Answer_A.setEnabled(true);
+        Answer_B.setEnabled(true);
+        Answer_C.setEnabled(true);
+        Answer_D.setEnabled(true);
 
         questionnumber ++;
 

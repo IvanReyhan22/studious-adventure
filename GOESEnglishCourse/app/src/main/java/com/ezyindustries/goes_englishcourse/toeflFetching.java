@@ -3,6 +3,7 @@ package com.ezyindustries.goes_englishcourse;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
+import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -17,13 +18,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.util.Objects;
 
+import okhttp3.internal.cache.DiskLruCache;
+
 public class toeflFetching extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth Auth;
     private DatabaseReference ref;
     private DatabaseReference refU;
-    private String TES;
+    private String TES, par1,par2,par3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,51 +37,48 @@ public class toeflFetching extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("Tes");
         refU = firebaseDatabase.getReference("user");
+
         FetchData();
     }
 
 
     private void FetchData() {
 
-        refU.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("tes").addValueEventListener(new ValueEventListener() {
+        ref.child("Direction").child("Direction1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                TES = dataSnapshot.getValue(String.class);
-
-                ref.child(TES).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot Snapshot : dataSnapshot.getChildren()) {
-                            if (Objects.requireNonNull(Snapshot.getKey()).equalsIgnoreCase("Direction1")) {
-                                String AudioUrl = dataSnapshot.getValue(String.class);
-                                MediaPlayer mediaPlayer = new MediaPlayer();
-                                try{
-                                    mediaPlayer.setDataSource(""+AudioUrl+"");
-                                    mediaPlayer.prepare();
-                                }catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                    par1 = dataSnapshot.child("Par1").getValue(String.class);
+                    par2 = dataSnapshot.child("Par2").getValue(String.class);
+                    par3 = dataSnapshot.child("Par3").getValue(String.class);
+                    if(par1 != null){
+                        if(par2 != null){
+                            if(par3!= null){
+                                Bundle extras = new Bundle();
+                                extras.putString("1",par1);
+                                extras.putString("2",par2);
+                                extras.putString("3",par3);
+                                Intent intent = new Intent(toeflFetching.this, Direction.class);
+                                intent.putExtras(extras);
+                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                FetchData();
                             }
+                        }else {
+                            FetchData();
                         }
-                        startActivity(new Intent(toeflFetching.this, Direction.class));
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
-
+                    }else{
+                        FetchData();
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-            }
+                }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
 
     }
 

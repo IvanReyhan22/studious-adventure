@@ -13,20 +13,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class basiclearning extends AppCompatActivity {
 
     private Button next;
+    private FirebaseAuth Auth;
     private TextView Stitle,example, paragraf1, paragraf2, paragraf3;
-    String Dtitle;
+    private String Dtitle, lesson;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference ref;
+    private DatabaseReference ref,refU;
+    private Integer number = 1;
+    private String numberCon;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -41,62 +48,68 @@ public class basiclearning extends AppCompatActivity {
         paragraf2 = (TextView) findViewById(R.id.paragraf2);
         paragraf3 = (TextView) findViewById(R.id.paragraf3);
 
+        Auth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("Lesson");
+        refU = firebaseDatabase.getReference("user");
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(basiclearning.this, main_page.class);
-                startActivity(intent);
-            }
-        });
 
-        lessondata();
+        getData();
+
     }
 
-    private void lessondata(){
-        DatabaseReference mQuestionRef= mRootRef.child("Lesson/a/Title");
-        mQuestionRef.addValueEventListener(new ValueEventListener() {
+
+    private void getData(){
+        refU.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("lesson").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Dtitle= dataSnapshot.getValue(String.class);
-                String title = dataSnapshot.getValue(String.class);
-                Stitle.setText(title);
-            }
+                lesson = dataSnapshot.getValue(String.class);
+                ref.child(lesson).child("Part"+number).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String Title = dataSnapshot.child("title").getValue(String.class);
+                        String Example = dataSnapshot.child("Example").getValue(String.class);
+                        String par1 = dataSnapshot.child("par1").getValue(String.class);
+                        String par2 = dataSnapshot.child("par1").getValue(String.class);
+                        String par3 = dataSnapshot.child("par3").getValue(String.class);
+                        Stitle.setText(Title);
+                        example.setText(Example);
+                        paragraf1.setText(par1);
+                        paragraf2.setText(par2);
+                        paragraf3.setText(par3);
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
 
-        DatabaseReference mExampleRef= mRootRef.child("Lesson/a/Example");
-        mExampleRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Dtitle= dataSnapshot.getValue(String.class);
-                String title = dataSnapshot.getValue(String.class);
-                example.setText(title);
-            }
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Integer numbercheck = number + 1;
+                        ref.child(lesson).child("Part"+numbercheck).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String Tempoary = dataSnapshot.child("title").getValue(String.class);
+                                if(Tempoary != null){
+                                    number++;
+                                    getData();
+                                }else{
+                                    Intent intent = new Intent(basiclearning.this, ResultLearning.class);
+                                    startActivity(intent);
+                                }
+                            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                            }
+                        });
+                    }
+                });
 
-        ref.child("a").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds: dataSnapshot.getChildren()){
-                    String par1 = dataSnapshot.child("par1").getValue(String.class);
-                    String par2 = dataSnapshot.child("par2").getValue(String.class);
-                    String par3 = dataSnapshot.child("par3").getValue(String.class);
-                    paragraf1.setText(par1);
-                    paragraf2.setText(par2);
-                    paragraf3.setText(par3);
-                }
             }
 
             @Override

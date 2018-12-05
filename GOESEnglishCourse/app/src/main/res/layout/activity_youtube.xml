@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#333366"
     tools:context=".Youtube">
 
     <android.support.v7.widget.CardView
@@ -14,22 +15,28 @@
         app:cardBackgroundColor="#663399"
         app:cardElevation="4dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <ImageView
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/previousback"/>
 
-            android:layout_width="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/previousback"/>
+            <TextView
+                android:id="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Title"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="20dp"/>
 
-        <ImageView
-
-            android:id="@+id/option"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="140dp"
-            android:src="@drawable/dot3white" />
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
@@ -39,5 +46,75 @@
         android:layout_height="200dp">
 
     </com.google.android.youtube.player.YouTubePlayerView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:orientation="vertical"
+            android:textAlignment="center"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#ffff"/>
+
+            <TextView
+                android:id="@+id/par1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Explanation 1"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/par2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Explanation 1"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/par3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Explanation 1"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/par4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Explanation 1"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/par5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Explanation 1"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

@@ -1,7 +1,6 @@
-    package com.ezyindustries.goes_englishcourse;
+package com.ezyindustries.goes_englishcourse;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,38 +27,37 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Objects;
 
-public class Toeflpart1 extends AppCompatActivity {
+public class Toeflpart3 extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth Auth;
     private DatabaseReference ref;
     private DatabaseReference refU;
-    private ImageView pic;
+    private TextView mainpar, optionalpar ;
     private CardView true1, true2, true3, true4;
     private TextView a,b,c,d, number,time;
     private Boolean audio = false;
-    private String correct, level ,PAKET, point, isPoint;
     private String par1,par2,par3;
-    private Integer  questionNumber = 0, limit=21 /*21*/, Point = 0, pointIn = 0, truepoint = 10;
+    private String correct, level ,PAKET, point, isPoint;
+    private Integer  questionNumber = 41/*40*/, limit=71/*71*/, Point = 0, pointIn = 0, truepoint = 10;
     private MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toeflpart1);
+        setContentView(R.layout.activity_toeflpart3);
 
         Auth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("Tes");
         refU = firebaseDatabase.getReference("user");
 
-        pic = (ImageView)findViewById(R.id.pic);
+        mainpar = (TextView)findViewById(R.id.mainpar);
+        optionalpar = (TextView)findViewById(R.id.optionalpar);
         true1 = (CardView)findViewById(R.id.true1);
         true2 = (CardView)findViewById(R.id.true2);
         true3 = (CardView)findViewById(R.id.true3);
@@ -78,8 +76,7 @@ public class Toeflpart1 extends AppCompatActivity {
     }
 
     private void CountdownTimer(){
-        new CountDownTimer(5000, 1000) {
-
+        new CountDownTimer(15000, 1000) {
             public void onTick(long millisUntilFinished) {
                 time.setText("Time: " + millisUntilFinished / 1000);
                 ref.child(level+"/"+questionNumber+"/Correct").addValueEventListener(new ValueEventListener() {
@@ -140,53 +137,16 @@ public class Toeflpart1 extends AppCompatActivity {
 
     public void Start(){
         questionNumber++;
-        if(questionNumber >= limit){
-            Limit();
-        }else{
-            numbershow();
-            refU.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("tes").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    level = dataSnapshot.getValue(String.class);
-                    Limit();
-                    PicRoll();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-
-    }
-
-    private void PicRoll(){
-        final ProgressDialog dialog = new ProgressDialog(Toeflpart1.this);
-        dialog.setMessage("Loading...");
-        dialog.show();
-
-        ref.child(level+"/"+questionNumber+"/Picture").addValueEventListener(new ValueEventListener() {
+        numbershow();
+        refU.child(Objects.requireNonNull(Auth.getCurrentUser()).getUid()).child("tes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String picUrl = dataSnapshot.getValue(String.class);
-                if(picUrl != null){
-                    Picasso.get().load(picUrl).into(pic, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            dialog.hide();
-                            Soundplay();
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-                            Dialog();
-                        }
-                    });
-                }else {
+                level = dataSnapshot.getValue(String.class);
+                if(questionNumber >= limit){
                     Limit();
+                }else {
+                    getQuestion();
                 }
-
             }
 
             @Override
@@ -194,33 +154,21 @@ public class Toeflpart1 extends AppCompatActivity {
 
             }
         });
+
+        Limit();
     }
 
-    private void Soundplay(){
-        ref.child(level+"/"+questionNumber+"/audioUrl").addValueEventListener(new ValueEventListener() {
+    private void getQuestion(){
+        ref.child(level+"/"+questionNumber).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String AudioUrl = dataSnapshot.getValue(String.class);
-                try{
-                    MediaPlayer mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setDataSource(""+AudioUrl+"");
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mediaPlayer.start();
-                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                public void onCompletion(MediaPlayer mp) {
-//                                            audio = true;
-                                    CountdownTimer();
+                String par1 = dataSnapshot.child("Paragraf1").getValue(String.class);
+                String par2 = dataSnapshot.child("Paragraf2").getValue(String.class);
+                mainpar.setText(par1);
+                optionalpar.setText(par2);
+                CountdownTimer();
 
-                                }
-                            });
-                        }
-                    });
-                    mediaPlayer.prepare();
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
 
             @Override
@@ -231,9 +179,8 @@ public class Toeflpart1 extends AppCompatActivity {
     }
 
     private void Limit(){
-        mediaPlayer.stop();
         if(questionNumber >= limit){
-            String Direct ="Direction2";
+            final String Direct ="Direction4";
             ref.child("Direction").child(Direct).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -248,8 +195,8 @@ public class Toeflpart1 extends AppCompatActivity {
                                 extras.putString("1",par1);
                                 extras.putString("2",par2);
                                 extras.putString("3",par3);
-                                extras.putString("NextDirec","Direction2");
-                                Intent intent = new Intent(Toeflpart1.this, Direction.class);
+                                extras.putString("NextDirec","Direction4");
+                                Intent intent = new Intent(Toeflpart3.this, Direction.class);
                                 intent.putExtras(extras);
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 startActivity(intent);
@@ -328,7 +275,7 @@ public class Toeflpart1 extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(Toeflpart1.this, main_page.class));
+                startActivity(new Intent(Toeflpart3.this, main_page.class));
                 finish();
             }
         });
@@ -370,7 +317,7 @@ public class Toeflpart1 extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(Toeflpart1.this, main_page.class));
+                startActivity(new Intent(Toeflpart3.this, main_page.class));
                 finish();
             }
         });
@@ -422,7 +369,7 @@ public class Toeflpart1 extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(Toeflpart1.this, main_page.class));
+                startActivity(new Intent(Toeflpart3.this, main_page.class));
                 finish();
             }
         });

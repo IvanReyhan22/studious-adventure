@@ -113,12 +113,13 @@ public class register extends AppCompatActivity {
                                             nickname.getText().toString(),
                                             InputEmail.getText().toString(),
                                             mobilenumber.getText().toString(),
-                                            "PartA",
+                                            "1",
                                             "Paket1",
                                             "level1",
                                             Gender,
                                             "No Detail about me yet.....",
-                                            "......"
+                                            "......",
+                                            ""
 
                                     );
                                     ref.child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).setValue(usr).addOnCompleteListener(new OnCompleteListener<Void>() {

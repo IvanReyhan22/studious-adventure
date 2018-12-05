@@ -14,7 +14,7 @@
         android:elevation="5dp">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/titleOF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"
@@ -63,7 +63,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:text="asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdddd"
                         android:layout_margin="10dp"/>
 
                     <RelativeLayout
@@ -92,7 +91,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:text="asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdddd"
                         android:layout_margin="10dp"/>
 
                 </LinearLayout>

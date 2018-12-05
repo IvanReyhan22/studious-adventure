@@ -1,29 +1,19 @@
 package com.ezyindustries.goes_englishcourse;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezyindustries.goes_englishcourse.Score.scoreData;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
-public class profile extends AppCompatActivity {
+public class friendprofile extends AppCompatActivity {
 
     private ImageButton back;
     private FirebaseAuth auth;
@@ -42,14 +32,15 @@ public class profile extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference ref;
     private TextView Total, levelScore, toeflScore, descirption, website, mobilenumber, email, nickname;
-    private String ok = "halo";
+    private String ok = "halo", id;
     private ImageView pic;
     private ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_friendprofile);
+
         auth = FirebaseAuth.getInstance();
         Total = (TextView) findViewById(R.id.total);
         toeflScore = (TextView) findViewById(R.id.toeflScore);
@@ -63,33 +54,29 @@ public class profile extends AppCompatActivity {
         pic = (ImageView) findViewById(R.id.pic);
         loading = (ProgressBar) findViewById(R.id.loading);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("user");
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile.this, main_page.class);
+                Intent intent = new Intent(friendprofile.this, friendlist.class);
                 startActivity(intent);
             }
         });
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(profile.this, edit_form.class));
-            }
-        });
-
-        getPic();
+        getid();
         getData();
         getDataScore();
+        getPic();
+    }
+
+    private void getid(){
+        Intent intent = getIntent();
+        id = intent.getStringExtra("Data");
     }
 
     private void getData() {
-        ref.child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).addValueEventListener(new ValueEventListener() {
+        ref.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -106,13 +93,13 @@ public class profile extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                Toast.makeText(profile.this, "Failed Retrieve data please restart!." + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(friendprofile.this, "Failed Retrieve data please restart!." + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void getDataScore(){
-        ref.child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Score").addValueEventListener(new ValueEventListener() {
+        ref.child(id).child("Score").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -134,13 +121,13 @@ public class profile extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                Toast.makeText(profile.this, "Failed Retrieve data please restart!." + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(friendprofile.this, "Failed Retrieve data please restart!." + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void getPic(){
-        ref.child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("picUrl").addValueEventListener(new ValueEventListener() {
+        ref.child(id).child("picUrl").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String imageResource = dataSnapshot.getValue(String.class);
@@ -169,8 +156,7 @@ public class profile extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        startActivity(new Intent(profile.this, main_page.class));
+        startActivity(new Intent(friendprofile.this, friendlist.class));
         finish();
     }
 }
-

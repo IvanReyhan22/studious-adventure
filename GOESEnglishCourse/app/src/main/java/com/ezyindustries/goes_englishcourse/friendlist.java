@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import com.ezyindustries.goes_englishcourse.RecyclerView.refData;
 import com.ezyindustries.goes_englishcourse.RecyclerView.refListFriend;
 import com.ezyindustries.goes_englishcourse.RecyclerView.refViewHolder;
+import com.ezyindustries.goes_englishcourse.RecyclerView.refViewHolderFriend;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,28 +55,34 @@ public class friendlist extends AppCompatActivity {
         FirebaseRecyclerOptions<refListFriend> options = new FirebaseRecyclerOptions.Builder<refListFriend>()
                 .setQuery(query,refListFriend.class).build();
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<refListFriend, refViewHolder>(options){
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<refListFriend, refViewHolderFriend>(options){
             @Override
-            protected void onBindViewHolder(@NonNull refViewHolder holder, final int position, @NonNull refListFriend model) {
-                holder.Stitle.setText(model.getUsername());
+            protected void onBindViewHolder(@NonNull final refViewHolderFriend holder, final int position, @NonNull refListFriend model) {
+                holder.Name.setText(model.getUsername());
+                holder.Description.setText(model.getDeskripsion());
+                String url = model.getPicUrl();
+                if(url.equals("")){
+                    holder.loading.setVisibility(View.GONE);
+                    holder.Simage.setImageResource(R.drawable.camera);
+                }else {
+                    Picasso.get().load(model.getPicUrl()).into(holder.Simage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.loading.setVisibility(View.GONE);
+                        }
 
-//                Picasso.get().load(model.getUrl()).into(holder.Simage, new Callback() {
-//                    @Override
-//                    public void onSuccess() {
-//                        dialog.hide();
-//                    }
-//
-//                    @Override
-//                    public void onError(Exception e) {
-//                        Log.e("Image", e.getMessage());}
-//                });
-
+                        @Override
+                        public void onError(Exception e) {
+                            Log.e("Image", e.getMessage());
+                        }
+                    });
+                }
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String id = firebaseRecyclerAdapter.getRef(position).getKey();
 
-                        Intent intent = new Intent(friendlist.this, Youtube.class);
+                        Intent intent = new Intent(friendlist.this, friendprofile.class);
                         intent.putExtra("Data", id);
                         startActivity(intent);
                     }
@@ -85,9 +92,9 @@ public class friendlist extends AppCompatActivity {
 
             @NonNull
             @Override
-            public refViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.row, parent, false);
-                return new refViewHolder(view);
+            public refViewHolderFriend onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.friendlist , parent, false);
+                return new refViewHolderFriend(view);
             }
 
 

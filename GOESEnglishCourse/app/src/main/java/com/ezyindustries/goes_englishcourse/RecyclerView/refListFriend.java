@@ -4,15 +4,15 @@ public class refListFriend {
 
     String username;
     String deskripsion;
-    String url;
+    String picUrl;
 
     public refListFriend() {
     }
 
-    public refListFriend(String username, String deskripsion, String url) {
+    public refListFriend(String username, String deskripsion, String picUrl) {
         this.username = username;
         this.deskripsion = deskripsion;
-        this.url = url;
+        this.picUrl = picUrl;
     }
 
     public String getUsername() {
@@ -31,11 +31,11 @@ public class refListFriend {
         this.deskripsion = deskripsion;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPicUrl() {
+        return picUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 }

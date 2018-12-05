@@ -40,11 +40,13 @@ public class Direction extends AppCompatActivity {
     private TextView instruction, title, par1, par2, par3;
     private ImageView pic1;
     private String Direct,Dpic;
+    MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_direction);
+
         getDataIntent();
 
         pic1 = (ImageView) findViewById(R.id.pic1);
@@ -52,21 +54,24 @@ public class Direction extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("Tes");
         refU = firebaseDatabase.getReference("user");
-        title = (TextView) findViewById(R.id.title);
+        title = (TextView) findViewById(R.id.titleOF);
 
         par1 = (TextView) findViewById(R.id.par1);
         par2 = (TextView) findViewById(R.id.par2);
         par3 = (TextView) findViewById(R.id.par3);
 
-        gerParagraf();
+
+
+        getIntentdata();
+//        gerParagraf();
         getData();
     }
 
     private void getDataIntent(){
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        if(extras != null){
-            title.setText(Objects.requireNonNull(extras).getString("NextDirec"));
+        String temporarry = Objects.requireNonNull(extras).getString("NextDirec");
+        if(temporarry != null){
             Direct = extras.getString("NextDirec");
         }else{
             Direct = "Direction1";
@@ -79,7 +84,6 @@ public class Direction extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String AudioUrl = dataSnapshot.getValue(String.class);
-                MediaPlayer mediaPlayer = new MediaPlayer();
                 try{
                     mediaPlayer.setDataSource(""+AudioUrl+"");
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -92,8 +96,25 @@ public class Direction extends AppCompatActivity {
                                     handler.postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            startActivity(new Intent(Direction.this, Toeflpart1.class));
-                                            finish();
+                                            switch (Direct){
+                                                case "Direction1":
+                                                    startActivity(new Intent(Direction.this, toeflResult.class));
+                                                    finish();
+                                                    break;
+                                                case "Direction2":
+                                                    startActivity(new Intent(Direction.this, Toeflpart2.class));
+                                                    finish();
+                                                    break;
+                                                case "Direction3":
+                                                    startActivity(new Intent(Direction.this, Toeflpart3.class));
+                                                    finish();
+                                                    break;
+                                                case "Direction4":
+                                                    startActivity(new Intent(Direction.this, Toeflpart4.class));
+                                                    finish();
+                                                    break;
+                                            }
+
                                         }
                                     },1000);
 
@@ -114,16 +135,16 @@ public class Direction extends AppCompatActivity {
         });
     }
 
-    private void gerParagraf(){
+    private void getIntentdata(){
         ref.child("Direction").child(Direct).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final String Dpar1 = dataSnapshot.child("Par1").getValue(String.class);
-                final String Dpar2 = dataSnapshot.child("Par2").getValue(String.class);
-                String Dpar3 = dataSnapshot.child("Par3").getValue(String.class);
                 Dpic = dataSnapshot.child("Picture").getValue(String.class);
-                par1.setText(Dpar1);
-                par3.setText(Dpar3);
+
+                Intent intent = getIntent();
+                Bundle extras = intent.getExtras();
+                par1.setText(Objects.requireNonNull(extras).getString("1"));
+                par3.setText(extras.getString("3"));
                 if(!Dpic.equals("")){
                     Toast.makeText(getApplicationContext(),"Not Null",Toast.LENGTH_SHORT).show();
                     Picasso.get().load(Dpic).into(pic1, new Callback() {
@@ -134,14 +155,12 @@ public class Direction extends AppCompatActivity {
 
                         @Override
                         public void onError(Exception e) {
-
                             Dialog();
                         }
                     });
                 }else{
-                    Toast.makeText(getApplicationContext(),"Null",Toast.LENGTH_SHORT).show();
                     pic1.setVisibility(View.GONE);
-                    par2.setText(Dpar2);
+                    par2.setText(extras.getString("2"));
                 }
             }
 
@@ -150,6 +169,7 @@ public class Direction extends AppCompatActivity {
 
             }
         });
+
     }
 
 
@@ -191,5 +211,12 @@ public class Direction extends AppCompatActivity {
         okBT.setLayoutParams(neuturalBtn);
 
     }
+
+    public void onBackPressed() {
+        mediaPlayer.stop();
+        startActivity(new Intent(Direction.this, main_page.class));
+        finish();
+    }
+
 }
 
